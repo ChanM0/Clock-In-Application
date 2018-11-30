@@ -13,8 +13,16 @@ class UserAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
+
+    public function signup(Request $request)
+    {
+        User::create($request->all());
+        return $this->login($request);
+    }
+    /**	
+     * 
     /**
      * Get a JWT via given credentials.
      *
