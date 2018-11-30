@@ -17,7 +17,6 @@ class UserAuthDiService implements UserAuthDiInterface
 
     $user->save();
 
-    return $response->json(['message' => 'success'], 201);
-
+    return response()->json(['message' => 'success'], 201);
   }
 }

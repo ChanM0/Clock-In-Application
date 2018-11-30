@@ -23,4 +23,16 @@ Route::group([
     Route::post('logout', 'UserAuthController@logout');
     Route::post('refresh', 'UserAuthController@refresh');
     Route::post('me', 'UserAuthController@me');
-}); 
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'empl'
+], function ($router) {
+    Route::post('/checkIn', 'TimeLogController@checkIn')->name('checkIn');
+    Route::post('/checkOut', 'TimeLogController@checkOut')->name('checkIn');
+    Route::post('/show/{user_id}', 'TimeLogController@getThisUserLogs')->name('checkIn');
+    Route::post('/show', 'TimeLogController@getAllLogsOnThisDay')->name('checkIn');
+
+});

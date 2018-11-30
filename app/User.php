@@ -51,4 +51,9 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function hasManyTimeLogs()
+    {
+        return $this->hasMany('App\Models\TimeLog', 'user_id', 'id');
+    }
 }

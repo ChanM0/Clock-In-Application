@@ -25,12 +25,15 @@ class UserAuthController extends Controller
 
     public function signup(SignUpValidateRequest $request)
     {
+
         $dataArray['first_name'] = $request->first_name;
         $dataArray['last_name'] = $request->last_name;
         $dataArray['email'] = $request->email;
         $dataArray['password'] = bcrypt($request->password);
 
-        $this->userAuthRetriever->signup($dataArray);
+        $response = $this->userAuthRetriever->signup($dataArray);
+
+        //TRY Catch $response;
 
         return $this->login($request);
     }

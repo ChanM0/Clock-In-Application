@@ -23,6 +23,6 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\DiInterfaces\UserAuthDiInterface', 'App\DiServices\UserAuthService');
+        $this->app->bind('App\DiInterfaces\UserAuthDiInterface', 'App\DiServices\UserAuthDiService');
     }
 }
