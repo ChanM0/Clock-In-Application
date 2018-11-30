@@ -18,7 +18,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'jwt/auth'
 ], function ($router) {
-    Route::post('signup', 'UserAuthController@login');
+    Route::post('signup', 'UserAuthController@signup');
     Route::post('login', 'UserAuthController@login');
     Route::post('logout', 'UserAuthController@logout');
     Route::post('refresh', 'UserAuthController@refresh');
