@@ -26,9 +26,27 @@ class SignUpValidateRequest extends FormRequest
         return [
             'first_name' => 'required|min:3|max:255',
             'last_name' => 'required|min:3|max:255',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password' => 'required'
             // 'password' => 'required|confirmed'
         ];
+    }
+
+    public function message()
+    {
+        return [
+            'first_name.required' => 'First Name is required.',
+            'first_name.min' => 'First Name must be at least three characters long.',
+            'first_name.max' => 'First Name must be at least three characters long.',
+            'last_name.required' => 'Last Name is required.',
+            'last_name.min' => 'Last Name must be at least three characters long.',
+            'last_name.max' => 'Last Name must be at least three characters long.',
+            'password.required' => 'Email is required.',
+            'password.min' => 'Email must be more than 3 characters long.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Not in an email address format.',
+            'email.unique' => 'Email has already been registered.'
+        ];
+
     }
 }
