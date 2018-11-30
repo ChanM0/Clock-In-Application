@@ -4,24 +4,34 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\DiInterfaces\UserAuthDiInterface;
 use App\Http\Requests\SignUpValidateRequest;
 
 class UserAuthController extends Controller
 {
+    protected $userAuthRetriever;
+
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserAuthDiInterface $userAuthDiInterface)
     {
+        $this->userAuthRetriever = $userAuthDiInterface;
         $this->middleware('JWTAuthMiddleWare', ['except' => ['login', 'signup']]);
     }
 
 
     public function signup(SignUpValidateRequest $request)
     {
-        User::create($request->all());
+        $dataArray['first_name'] = $request->first_name;
+        $dataArray['last_name'] = $request->last_name;
+        $dataArray['email'] = $request->email;
+        $dataArray['password'] = bcrypt($request->password);
+
+        $this->userAuthRetriever->signup($dataArray);
+
         return $this->login($request);
     }
 
