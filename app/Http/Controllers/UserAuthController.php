@@ -18,7 +18,7 @@ class UserAuthController extends Controller
         $this->middleware('JWTAuthMiddleWare', ['except' => ['login', 'signup']]);
     }
 
-    // public function signup(Request $request)
+
     public function signup(SignUpValidateRequest $request)
     {
         User::create($request->all());
