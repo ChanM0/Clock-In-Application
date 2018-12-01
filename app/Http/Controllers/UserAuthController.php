@@ -15,7 +15,7 @@ class UserAuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('JWTAuthMiddleWare', ['except' => ['login', 'signup']]);
+        $this->middleware('JWT', ['except' => ['login', 'signup']]);
     }
 
 

@@ -61,6 +61,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         /** add new middle ware */
-        'JWTAuthMiddleWare' => \App\Http\Middleware\JWT::class
+        'JWT' => \App\Http\Middleware\JWT::class
     ];
 }
