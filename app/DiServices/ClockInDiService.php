@@ -64,9 +64,12 @@ class ClockInDiService implements ClockInDiInterface
   public function getAllLogsOnThisDay($dataArray)
   {
     $userLogs = ClockIn::where('day_of', $dataArray['day_of'])->get();
-    if ($userLogs == null || isEmpty($userLogs)) {
+
+    if ($userLogs == []) {
       return response('No data found', 200);
+
     }
+
     return $userLogs;
   }
 }
