@@ -78,7 +78,12 @@ class UserAuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'first_name' => auth()->user()->first_name,
+            'last_name' => auth()->user()->last_name
         ]);
     }
 }
+
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9 . eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9qd3RcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTQzNjQwNDUwLCJleHAiOjE1NDM2NDQwNTAsIm5iZiI6MTU0MzY0MDQ1MCwianRpIjoiWFRybnZBdXZSaUZWZ0dPRyIsInN1YiI6NCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9 . kj5Vbnb3vFqtK - DzfROgRFY7OAF - C1ZB8cTl9K1sDs8
