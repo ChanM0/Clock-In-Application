@@ -80,7 +80,8 @@ class UserAuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'first_name' => auth()->user()->first_name,
-            'last_name' => auth()->user()->last_name
+            'last_name' => auth()->user()->last_name,
+            'user_id' => auth()->user()->id
         ]);
     }
 }

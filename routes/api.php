@@ -30,9 +30,8 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'empl/clock'
 ], function ($router) {
-    Route::post('/in', 'TimeLogController@checkIn')->name('checkIn');
-    Route::post('/out', 'TimeLogController@checkOut')->name('checkIn');
-    Route::post('/logs/{user_id}', 'TimeLogController@getThisUserLogs')->name('checkIn');
-    Route::post('/all/logs', 'TimeLogController@getAllLogsOnThisDay')->name('checkIn');
-
+    Route::post('/in', 'ClockInController@clockIn')->name('clockIn');
+    Route::post('/out', 'ClockInController@clockOut')->name('clockOut');
+    Route::post('/logs/{user_id}', 'ClockInController@getThisUserLogs')->name('getAllUsersLogs');
+    Route::post('/all/logs', 'ClockInController@getAllLogsOnThisDay')->name('getAllLogsOnThisDay');
 });

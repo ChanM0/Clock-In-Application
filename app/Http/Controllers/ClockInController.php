@@ -7,10 +7,11 @@ use App\DiInterfaces\ClockInDiInterface;
 class ClockInController extends Controller
 {
     protected $clockInRetriever = null;
-    public function __construct(ClockInDiInterfaces $clockInDiInterface)
+
+    public function __construct(ClockInDiInterface $clockInDiInterface)
     {
-        $this->middleware('CustomJWTMiddleWare');
-        $this->clockInRetriever = new DependencyInjectClockInInterface($clockInDiInterface);
+        $this->clockInRetriever = $clockInDiInterface;
+        $this->middleware('JWT');
     }
     /**
      * Store a newly created resource in storage.
@@ -18,11 +19,16 @@ class ClockInController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function checkIn(Request $request)
+    public function clockIn(Request $request)
     {
+        $incorrectDateTimeValue = substr($request->time_in, 0, -5);
+
+        $correctTimeValue = str_replace('T', ' ', $incorrectDateTimeValue);
+
         $dataArray['user_id'] = $request->user_id;
-        $dataArray['time_in'] = $request->time_in;
-        $this->clockInRetriever->checkIn($request);
+        $dataArray['time_in'] = $correctTimeValue;
+
+        return $this->clockInRetriever->clockIn($dataArray);
     }
     /**
      * Store a newly created resource in storage.
@@ -30,11 +36,11 @@ class ClockInController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function checkOut(Request $request)
+    public function clockOut(Request $request)
     {
         $dataArray['user_id'] = $request->user_id;
         $dataArray['time_out'] = $request->time_out;
-        return $this->clockInRetriever->checkOut($dataArray);
+        return $this->clockInRetriever->clockOut($dataArray);
     }
      // Admin Methods
     /**
@@ -47,7 +53,7 @@ class ClockInController extends Controller
     {
         $dataArray['day_of'] = $request->day_of;
         $dataArray['user_id'] = $request->user_id;
-        return $this->clockInRetriever->getThisUserLogsOnThisDay($dataArray);
+        return $this->clockInRetriever->getAlllUsersLogs($dataArray);
     }
     /**
      * Display the specified resource.

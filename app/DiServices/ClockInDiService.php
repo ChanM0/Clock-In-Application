@@ -1,5 +1,5 @@
 <?php 
-namespace App\Services;
+namespace App\DiServices;
 
 use Carbon\Carbon;
 use App\ClockIn;
@@ -11,10 +11,10 @@ class ClockInDiService implements ClockInDiInterface
   private function getCurrentDay()
   {
     $carbonDate = Carbon::now();
-    $date = Carbon::parse($carbonDate)->format('d/m/Y');
+    $date = Carbon::parse($carbonDate)->format('Y-m-d');;
     return $date;
   }
-  public function checkIn($dataArray)
+  public function clockIn($dataArray)
   {
     $dayOf = $this->getCurrentDay();
     $userCheckIn = new ClockIn;
@@ -24,7 +24,7 @@ class ClockInDiService implements ClockInDiInterface
     $userCheckIn->save();
     return response('Check In Successful', 200);
   }
-  public function checkOut($dataArray)
+  public function clockOut($dataArray)
   {
     $dayOf = $this->getCurrentDay();
      // catch exception;
