@@ -31,7 +31,7 @@ Route::group([
     'prefix' => 'empl/clock'
 ], function ($router) {
     Route::post('/in', 'ClockInController@clockIn')->name('clockIn');
-    Route::post('/out', 'ClockInController@clockOut')->name('clockOut');
-    Route::post('/logs/{user_id}', 'ClockInController@getThisUserLogs')->name('getAllUsersLogs');
+    Route::put('/out', 'ClockInController@clockOut')->name('clockOut');
+    Route::post('/logs', 'ClockInController@getAllUsersLogs')->name('getAllUsersLogs');
     Route::post('/all/logs', 'ClockInController@getAllLogsOnThisDay')->name('getAllLogsOnThisDay');
 });

@@ -14,30 +14,49 @@ class ClockInDiService implements ClockInDiInterface
     $date = Carbon::parse($carbonDate)->format('Y-m-d');;
     return $date;
   }
+
+  private function sanitizeRequest($timeIn)
+  {
+    $incorrectDateTimeValue = substr($timeIn, 0, -5);
+    return str_replace('T', ' ', $incorrectDateTimeValue);
+  }
+
   public function clockIn($dataArray)
   {
+    // add logic for double checkin ins
     $dayOf = $this->getCurrentDay();
-    $userCheckIn = new ClockIn;
-    $userCheckIn->user_id = $dataArray['user_id'];
-    $userCheckIn->time_in = $dataArray['time_in'];
-    $userCheckIn->day_of = $dayOf;
-    $userCheckIn->save();
-    return response('Check In Successful', 200);
+
+    $timeIn = $this->sanitizeRequest($dataArray['time_in']);
+
+    $userClockIn = new ClockIn;
+    $userClockIn->user_id = $dataArray['user_id'];
+    $userClockIn->time_in = $timeIn;
+    $userClockIn->day_of = $dayOf;
+    $userClockIn->save();
+    return response('Clock In Successful', 200);
+
   }
   public function clockOut($dataArray)
   {
+
     $dayOf = $this->getCurrentDay();
+
+    $timeOut = $this->sanitizeRequest($dataArray['time_out']);
+
      // catch exception;
-    $userCheckOut = ClockIn::where('user_id', $dataArray['user_id'])->where('day_of', $dayOf)->firstOrFail();
-    $userCheckOut->time_out = $dataArray['time_out'];
-    $userCheckOut->save();
-    return response('Check Out Successful', 200);
+    $userClockOut = ClockIn::where('user_id', $dataArray['user_id'])->where('day_of', $dayOf)->firstOrFail();
+
+    $userClockOut->time_out = $timeOut;
+    $userClockOut->save();
+
+
+    return response('Clock Out Successful', 200);
   }
      // Admin Methods
   public function getAllUsersLogs($dataArray)
   {
-    $dataArray['day_of'] = $request->day_of;
-    $dataArray['user_id'] = $request->user_id;
+    $dayOf = $this->getCurrentDay();
+    
      // Relationship 
     $userLogs = User::where('id', $dataArray['user_id'])->with('hasManyLogs')->get();
     return $userLogs;

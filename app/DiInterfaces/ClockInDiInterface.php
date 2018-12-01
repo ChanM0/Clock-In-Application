@@ -7,5 +7,6 @@ interface ClockInDiInterface
   public function clockOut($dataArray);
    // Admin Methods
   public function getAllUsersLogs($dataArray);
+
   public function getAllLogsOnThisDay($dataArray);
 } 

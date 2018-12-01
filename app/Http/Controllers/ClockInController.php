@@ -21,12 +21,8 @@ class ClockInController extends Controller
      */
     public function clockIn(Request $request)
     {
-        $incorrectDateTimeValue = substr($request->time_in, 0, -5);
-
-        $correctTimeValue = str_replace('T', ' ', $incorrectDateTimeValue);
-
         $dataArray['user_id'] = $request->user_id;
-        $dataArray['time_in'] = $correctTimeValue;
+        $dataArray['time_in'] = $request->time_in;
 
         return $this->clockInRetriever->clockIn($dataArray);
     }
@@ -51,9 +47,9 @@ class ClockInController extends Controller
      */
     public function getAllUsersLogs(Request $request)
     {
-        $dataArray['day_of'] = $request->day_of;
         $dataArray['user_id'] = $request->user_id;
-        return $this->clockInRetriever->getAlllUsersLogs($dataArray);
+
+        return $this->clockInRetriever->getAllUsersLogs($dataArray);
     }
     /**
      * Display the specified resource.
