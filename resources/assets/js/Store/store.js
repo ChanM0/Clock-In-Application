@@ -37,6 +37,9 @@ const store = new Vuex.Store({
             localStorage.removeItem("token");
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.user = null;
+        },
+        CLOCKIN(state, res) {
+            console.log(res);
         }
     },
     actions: {
@@ -62,6 +65,14 @@ const store = new Vuex.Store({
                 .post(path, formData)
                 .then(res => commit("VALIDATE_LOGIN", res))
                 .catch(error => console.log(error.response.data));
+        },
+        clockin({ commit }, dateTime) {
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/in";
+            axios
+                .post(path, dateTime)
+                .then(res => commit("CLOCKIN", res))
+                .catch(error => console.log(error.response.data));
         }
     },
     getters: {
@@ -70,6 +81,9 @@ const store = new Vuex.Store({
         },
         getLoggedInStatus: state => {
             return state.isLoggedIn;
+        },
+        getToken: state => {
+            return localStorage.getItem("token");
         }
     }
 });

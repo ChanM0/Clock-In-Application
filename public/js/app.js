@@ -26306,7 +26306,6 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 window._ = __webpack_require__(20);
 window.Popper = __webpack_require__(8).default;
 
@@ -26330,7 +26329,8 @@ try {
 
 window.axios = __webpack_require__(10);
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+/**  */
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -26341,9 +26341,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 
 /**
@@ -72008,9 +72008,12 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Forms_logout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Forms_logout__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Forms_signup__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn__);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
+
 
 
 
@@ -72031,11 +72034,10 @@ var routes = [{
     path: "/signup",
     component: __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup___default.a,
     name: "signup"
-    // {
-    //     path: "/clockIn",
-    //     component: login
-    //     // name:""
-    // },
+}, {
+    path: "/clock/in",
+    component: __WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn___default.a,
+    name: "clockIn"
     // {
     //     path: "/clockOut",
     //     component: login
@@ -74948,6 +74950,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             localStorage.removeItem("token");
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.user = null;
+        },
+        CLOCKIN: function CLOCKIN(state, res) {
+            console.log(res);
         }
     },
     actions: {
@@ -74979,6 +74984,17 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             }).catch(function (error) {
                 return console.log(error.response.data);
             });
+        },
+        clockin: function clockin(_ref4, dateTime) {
+            var commit = _ref4.commit;
+
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/in";
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, dateTime).then(function (res) {
+                return commit("CLOCKIN", res);
+            }).catch(function (error) {
+                return console.log(error.response.data);
+            });
         }
     },
     getters: {
@@ -74987,6 +75003,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         getLoggedInStatus: function getLoggedInStatus(state) {
             return state.isLoggedIn;
+        },
+        getToken: function getToken(state) {
+            return localStorage.getItem("token");
         }
     }
 });
@@ -75334,6 +75353,237 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a9cb4ea2", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(85)
+}
+var normalizeComponent = __webpack_require__(6)
+/* script */
+var __vue_script__ = __webpack_require__(87)
+/* template */
+var __vue_template__ = __webpack_require__(88)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ClockInForms/ClockIn.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-43e8e377", Component.options)
+  } else {
+    hotAPI.reload("data-v-43e8e377", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(86);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("79913dd3", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-43e8e377\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ClockIn.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-43e8e377\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ClockIn.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.text-xs-center {\n  padding: 15%;\n  -webkit-text-emphasis: size;\n          text-emphasis: size;\n  font-size: 25pt;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus"])),
+  watch: {
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello i am beeing watch:clockin");
+      this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
+    }
+  },
+  created: function created() {
+    // if (this.$store.getters.getLoggedInStatus != false) {
+    //   this.$router.push({ name: "landingPage" });
+    // }
+  },
+
+  methods: {
+    getDateTime: function getDateTime() {
+      var dateTime = new Date(),
+          dformat = [dateTime.getMonth() + 1, dateTime.getDate(), dateTime.getFullYear()].join("/") + "__" + [dateTime.getHours() + 14, dateTime.getMinutes(), dateTime.getSeconds()].join(":");
+      return dateTime;
+    },
+    clockin: function clockin() {
+      var data = [{
+        time_in: this.getDateTime(),
+        token: this.$store.getters.getToken
+      }];
+      this.$store.dispatch("clockin", data);
+    },
+    redirectToNavigation: function redirectToNavigation(status) {
+      console.log(status);
+      if (status == false) {
+        this.$router.push({ name: "landingPage" });
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    { staticClass: "pa-0", attrs: { fluid: "" } },
+    [
+      _c(
+        "v-form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.clockin($event)
+            }
+          }
+        },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "", "align-center": "" } },
+            [
+              _c("v-flex", { attrs: { m12: "" } }, [
+                _c("div", { staticClass: "text-xs-center" }, [
+                  _vm._v("Clock In\n          "),
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            color: "primary",
+                            type: "submit",
+                            fab: "",
+                            large: ""
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("alarm")])],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-43e8e377", module.exports)
   }
 }
 

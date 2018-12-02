@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 import login from "../components/Forms/Login";
 import logout from "../components/Forms/logout";
 import signup from "../components/Forms/signup";
+import clockIn from "../components/ClockInForms//ClockIn";
 
 const routes = [
     {
@@ -25,12 +26,12 @@ const routes = [
         path: "/signup",
         component: signup,
         name: "signup"
+    },
+    {
+        path: "/clock/in",
+        component: clockIn,
+        name: "clockIn"
     }
-    // {
-    //     path: "/clockIn",
-    //     component: login
-    //     // name:""
-    // },
     // {
     //     path: "/clockOut",
     //     component: login
