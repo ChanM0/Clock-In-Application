@@ -7,7 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
-        user: ""
+        user: null
     },
     mutations: {
         VALIDATE_LOGIN(state, res) {
@@ -26,7 +26,7 @@ const store = new Vuex.Store({
                 let signup = payload.iss == api_auth_login;
                 if (login || signup) {
                     localStorage.setItem("token", token);
-                    state.isLoggedIn = localStorage.getItem("token", token)
+                    state.isLoggedIn = localStorage.getItem("token")
                         ? true
                         : false;
                     state.user = user;
@@ -35,6 +35,7 @@ const store = new Vuex.Store({
         },
         LOGOUT(state) {
             localStorage.removeItem("token");
+            state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.user = null;
         }
     },
@@ -51,7 +52,7 @@ const store = new Vuex.Store({
                     console.log(error.response);
                 });
         },
-        logout() {
+        logout({ commit }) {
             commit("LOGOUT");
         }
     },

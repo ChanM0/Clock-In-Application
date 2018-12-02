@@ -6,10 +6,6 @@
       <v-text-field v-model="form.password" label="Password" type="password" required></v-text-field>
 
       <v-btn color="green" type="submit">Login</v-btn>
-
-      <router-link to="/signup">
-        <v-btn color="blue" type="submit">Sign Up</v-btn>
-      </router-link>
     </v-form>
   </v-container>
 </template>
@@ -34,9 +30,6 @@ export default {
     login() {
       this.$store.dispatch("login", this.form);
       this.$router.push({ name: "navigation" });
-    },
-    recomputeItems() {
-      return this.$store.dispatch("setItems");
     }
   }
 };
