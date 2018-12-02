@@ -26330,6 +26330,8 @@ try {
 window.axios = __webpack_require__(10);
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+var jwt = "Bearer " + localStorage.getItem("token");
+window.axios.defaults.headers.common["Authorization"] = jwt;
 /**  */
 
 /**
