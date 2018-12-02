@@ -4,6 +4,7 @@ Vue.use(VueRouter);
 
 import login from "../components/Forms/Login";
 import logout from "../components/Forms/logout";
+import signup from "../components/Forms/signup";
 
 const routes = [
     {
@@ -18,13 +19,13 @@ const routes = [
     {
         path: "/logout",
         component: logout,
-        name: "login"
+        name: "logout"
+    },
+    {
+        path: "/signup",
+        component: signup,
+        name: "signup"
     }
-    // {
-    //     path: "/signup",
-    //     component: login,
-    //     name:""
-    // },
     // {
     //     path: "/clockIn",
     //     component: login

@@ -1,23 +1,29 @@
-<template>
+	<template>
   <v-container>
-    <v-form @submit.prevent="login">
+    <v-form @submit.prevent="signup">
+      <v-text-field v-model="form.username" label="username" type="text" required></v-text-field>
       <v-text-field v-model="form.email" label="E-mail" type="email" required></v-text-field>
-
       <v-text-field v-model="form.password" label="Password" type="password" required></v-text-field>
-
-      <v-btn color="green" type="submit">Login</v-btn>
+      <v-text-field
+        v-model="form.password_confirmation"
+        label="Password Confirmation"
+        type="password"
+        required
+      ></v-text-field>
+      <v-btn color="green" type="submit">Signup</v-btn>
     </v-form>
   </v-container>
 </template>
-
-<script>
+ <script>
 import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       form: {
+        username: null,
         email: null,
-        password: null
+        password: null,
+        password_confirmation: null
       }
     };
   },
@@ -26,7 +32,7 @@ export default {
   },
   watch: {
     getLoggedInStatus() {
-      console.log("hello i am beeing watch:Login");
+      console.log("hello i am beeing watch:signup");
       this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
     }
   },
@@ -36,8 +42,8 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$store.dispatch("login", this.form);
+    signup() {
+      this.$store.dispatch("signup", this.form);
       if (this.$store.getters.getLoggedInStatus) {
         this.$router.push({ name: "navigation" });
       }
@@ -52,6 +58,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

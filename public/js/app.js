@@ -71692,7 +71692,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -71706,7 +71706,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
 //
 //
 //
@@ -72007,9 +72006,12 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Forms_Login___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Forms_Login__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Forms_logout__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Forms_logout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Forms_logout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Forms_signup__);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
+
 
 
 
@@ -72024,12 +72026,11 @@ var routes = [{
 }, {
     path: "/logout",
     component: __WEBPACK_IMPORTED_MODULE_3__components_Forms_logout___default.a,
-    name: "login"
-    // {
-    //     path: "/signup",
-    //     component: login,
-    //     name:""
-    // },
+    name: "logout"
+}, {
+    path: "/signup",
+    component: __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup___default.a,
+    name: "signup"
     // {
     //     path: "/clockIn",
     //     component: login
@@ -74768,7 +74769,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -74780,6 +74781,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -74803,8 +74806,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     };
   },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus"])),
+  watch: {
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello i am beeing watch:Login");
+      this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
+    }
+  },
   created: function created() {
-    if (this.$store.getters.getLoggedInStatus) {
+    if (this.$store.getters.getLoggedInStatus != false) {
       this.$router.push({ name: "landingPage" });
     }
   },
@@ -74812,7 +74823,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     login: function login() {
       this.$store.dispatch("login", this.form);
-      this.$router.push({ name: "navigation" });
+      if (this.$store.getters.getLoggedInStatus) {
+        this.$router.push({ name: "navigation" });
+      }
+    },
+    redirectToNavigation: function redirectToNavigation(status) {
+      if (status == false) {
+        this.$router.push({ name: "landingPage" });
+      } else {
+        this.$router.push({ name: "navigation" });
+      }
     }
   }
 });
@@ -74948,6 +74968,17 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref2.commit;
 
             commit("LOGOUT");
+        },
+        signup: function signup(_ref3, formData) {
+            var commit = _ref3.commit;
+
+            var path = "http://localhost:8000/";
+            path += "api/jwt/auth/signup";
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, formData).then(function (res) {
+                return commit("VALIDATE_LOGIN", res);
+            }).catch(function (error) {
+                return console.log(error.response.data);
+            });
         }
     },
     getters: {
@@ -75097,6 +75128,212 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a85d17be", module.exports)
+  }
+}
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(6)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Forms/signup.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a9cb4ea2", Component.options)
+  } else {
+    hotAPI.reload("data-v-a9cb4ea2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        username: null,
+        email: null,
+        password: null,
+        password_confirmation: null
+      }
+    };
+  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus"])),
+  watch: {
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello i am beeing watch:signup");
+      this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
+    }
+  },
+  created: function created() {
+    if (this.$store.getters.getLoggedInStatus != false) {
+      this.$router.push({ name: "landingPage" });
+    }
+  },
+
+  methods: {
+    signup: function signup() {
+      this.$store.dispatch("signup", this.form);
+      if (this.$store.getters.getLoggedInStatus) {
+        this.$router.push({ name: "navigation" });
+      }
+    },
+    redirectToNavigation: function redirectToNavigation(status) {
+      if (status == false) {
+        this.$router.push({ name: "landingPage" });
+      } else {
+        this.$router.push({ name: "navigation" });
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    [
+      _c(
+        "v-form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.signup($event)
+            }
+          }
+        },
+        [
+          _c("v-text-field", {
+            attrs: { label: "username", type: "text", required: "" },
+            model: {
+              value: _vm.form.username,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "username", $$v)
+              },
+              expression: "form.username"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-text-field", {
+            attrs: { label: "E-mail", type: "email", required: "" },
+            model: {
+              value: _vm.form.email,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "email", $$v)
+              },
+              expression: "form.email"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-text-field", {
+            attrs: { label: "Password", type: "password", required: "" },
+            model: {
+              value: _vm.form.password,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "password", $$v)
+              },
+              expression: "form.password"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-text-field", {
+            attrs: {
+              label: "Password Confirmation",
+              type: "password",
+              required: ""
+            },
+            model: {
+              value: _vm.form.password_confirmation,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "password_confirmation", $$v)
+              },
+              expression: "form.password_confirmation"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
+            _vm._v("Signup")
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a9cb4ea2", module.exports)
   }
 }
 

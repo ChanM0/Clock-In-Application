@@ -54,6 +54,14 @@ const store = new Vuex.Store({
         },
         logout({ commit }) {
             commit("LOGOUT");
+        },
+        signup({ commit }, formData) {
+            var path = "http://localhost:8000/";
+            path += "api/jwt/auth/signup";
+            axios
+                .post(path, formData)
+                .then(res => commit("VALIDATE_LOGIN", res))
+                .catch(error => console.log(error.response.data));
         }
     },
     getters: {

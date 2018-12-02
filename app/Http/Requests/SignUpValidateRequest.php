@@ -24,11 +24,11 @@ class SignUpValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|min:3|max:255,unique:users,username',
+            'username' => 'required|min:3|max:255|unique:users,username',
             // 'first_name' => 'required|min:3|max:255',
             // 'last_name' => 'required|min:3|max:255',
-            'password' => 'required|min:3',
-            // 'password' => 'required|min:3|confirmed',
+
+            'password' => 'required|min:3|confirmed',
             'email' => 'required|unique:users,email',
         ];
     }

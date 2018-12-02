@@ -1,4 +1,3 @@
-
 <template>
   <v-toolbar>
     <v-toolbar-title>SPA-Forum</v-toolbar-title>
