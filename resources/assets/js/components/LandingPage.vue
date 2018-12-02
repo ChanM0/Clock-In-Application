@@ -1,14 +1,14 @@
 <template>
   <div>
-    <toolbar></toolbar>
+    <app-nav-bar></app-nav-bar>
     <app-footer></app-footer>
   </div>
 </template>
  <script>
-import toolbar from "./Toolbar";
+import AppNavBar from "./AppNavBar";
 import AppFooter from "./AppFooter";
 export default {
-  components: { toolbar, AppFooter }
+  components: { AppNavBar, AppFooter }
 };
 </script>
  <style>
