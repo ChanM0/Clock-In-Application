@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('landingPage');
 });
+
+
+// Route::view('/', 'landingPage');
+// Route::view('/{any}', 'landingPage');

@@ -21,6 +21,31 @@ class UserAuthController extends Controller
 
     public function signup(SignUpValidateRequest $request)
     {
+
+        // $dataArray['username'] = $request->username;
+        // $dataArray['first_name'] = $request->first_name;
+        // $dataArray['last_name'] = $request->last_name;
+        // $dataArray['full_name'] = $dataArray['first_name'] . $dataArray['last_name'];
+        // $dataArray['email'] = $request->email;
+        // $dataArray['password'] = $request->password;
+
+        // $user = new User([
+        //     'username' => $dataArray['username'],
+        //     'full_name' => $dataArray['full_name'],
+        //     'first_name' => $dataArray['first_name'],
+        //     'last_name' => $dataArray['last_name'],
+        //     'email' => $dataArray['email'],
+        //     'password' => bcrypt($dataArray['password']),
+        // ]);
+        // $user = new User();
+        // $user->username = $dataArray['username'];
+        // $user->full_name = $dataArray['full_name'];
+        // $user->first_name = $dataArray['first_name'];
+        // $user->last_name = $dataArray['last_name'];
+        // $user->email = $dataArray['email'];
+        // $user->password = bcrypt($dataArray['password']);
+        // $user->save();
+
         User::create($request->all());
         return $this->login($request);
     }
@@ -79,8 +104,7 @@ class UserAuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'first_name' => auth()->user()->first_name,
-            'last_name' => auth()->user()->last_name,
+            'first_name' => auth()->user()->username,
             'user_id' => auth()->user()->id
         ]);
     }

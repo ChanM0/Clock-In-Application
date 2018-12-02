@@ -1,16 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
+
+import login from "../components/Forms/Login";
+
 const routes = [
     // {
-    //     path: "/login",
-    //     component: login
-    //     // name:""
+    //     path: "/",
+    //     name: "landingPage"
     // },
+    {
+        path: "/login",
+        component: login,
+        name: "login"
+    }
     // {
-    //     path: "/signUp",
-    //     component: login
-    //     // name:""
+    //     path: "/signup",
+    //     component: login,
+    //     name:""
     // },
     // {
     //     path: "/clockIn",

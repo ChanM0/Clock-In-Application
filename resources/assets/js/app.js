@@ -20,8 +20,10 @@ Vue.use(Vuetify);
 
 Vue.component("LandingPage", require("./components/LandingPage.vue"));
 import router from "./Router/router.js";
+// import store from "./Store/store.js";
 
 const app = new Vue({
     el: "#app",
     router
+    // store
 });
