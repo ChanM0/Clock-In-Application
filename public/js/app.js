@@ -11375,7 +11375,7 @@ module.exports = Vue;
 /* unused harmony export install */
 /* unused harmony export mapState */
 /* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
 /* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -71692,7 +71692,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -71704,6 +71704,13 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""])
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -71719,10 +71726,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: {
-    // ...mapGetters(["getRouteList"]),
-    routeList: function routeList() {
-      return this.$store.getters.getRouteList;
+  data: function data() {
+    return {
+      routeList: [{
+        title: "Clock in",
+        to: "/clock/in",
+        show: this.$store.getters.getLoggedInStatus
+      }, {
+        title: "Clock out",
+        to: "/clock/out",
+        show: this.$store.getters.getLoggedInStatus
+      }, {
+        title: "Sign up",
+        to: "/signup",
+        show: !this.$store.getters.getLoggedInStatus
+      }, {
+        title: "Login",
+        to: "/login",
+        show: !this.$store.getters.getLoggedInStatus
+      }, {
+        title: "Logout",
+        to: "/logout",
+        show: this.$store.getters.getLoggedInStatus
+      }]
+    };
+  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus"])),
+  watch: {
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello i am beeing watch");
+      var show = this.$store.getters.getLoggedInStatus;
+      this.routeList = [{
+        title: "Clock in",
+        to: "/clock/in",
+        show: show
+      }, {
+        title: "Clock out",
+        to: "/clock/out",
+        show: show
+      }, {
+        title: "Sign up",
+        to: "/signup",
+        show: !show
+      }, {
+        title: "Login",
+        to: "/login",
+        show: !show
+      }, {
+        title: "Logout",
+        to: "/logout",
+        show: show
+      }];
     }
   }
 });
@@ -71745,14 +71800,14 @@ var render = function() {
       _c(
         "div",
         { staticClass: "hidden-sm-and-down" },
-        _vm._l(_vm.routeList, function(item) {
-          return item.show
+        _vm._l(_vm.routeList, function(routeView) {
+          return routeView.show
             ? _c(
                 "router-link",
-                { key: item.title, attrs: { to: item.to } },
+                { key: routeView.title, attrs: { to: routeView.to } },
                 [
                   _c("v-btn", { attrs: { flat: "" } }, [
-                    _vm._v(_vm._s(item.title))
+                    _vm._v(_vm._s(routeView.title))
                   ])
                 ],
                 1
@@ -74856,33 +74911,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
-        user: null,
-        routeList: [{
-            title: "Clock in",
-            to: "/clock/in",
-            show: !!localStorage.getItem("token")
-        }, {
-            title: "Clock out",
-            to: "/clock/out",
-            show: !!localStorage.getItem("token")
-        }, {
-            title: "Sign up",
-            to: "/signup",
-            show: !!!localStorage.getItem("token")
-        }, {
-            title: "Login",
-            to: "/login",
-            show: !!!localStorage.getItem("token")
-        }, {
-            title: "Logout",
-            to: "/logout",
-            show: !!localStorage.getItem("token")
-        }]
+        user: ""
     },
     mutations: {
         VALIDATE_LOGIN: function VALIDATE_LOGIN(state, res) {
             var token = res.data.access_token;
             var payload = JSON.parse(atob(token.split(".")[1]));
+            var user = res.data.username;
 
             var api_auth_login = "http://localhost:8000/";
             api_auth_login += "api/jwt/auth/login";
@@ -74895,7 +74930,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 var signup = payload.iss == api_auth_login;
                 if (login || signup) {
                     localStorage.setItem("token", token);
-                    state.user = res.data.username;
+                    state.isLoggedIn = localStorage.getItem("token", token) ? true : false;
+                    state.user = user;
                 }
             }
         },
@@ -74905,13 +74941,17 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         }
     },
     actions: {
-        login: function login(formData) {
+        login: function login(_ref, formData) {
+            var commit = _ref.commit;
+
+            console.log(formData);
             var path = "http://localhost:8000/";
             path += "api/jwt/auth/login";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, formData).then(function (res) {
                 return commit("VALIDATE_LOGIN", res);
             }).catch(function (error) {
-                return console.log(error.response);
+                console.log(formData);
+                console.log(error.response);
             });
         },
         logout: function logout() {
@@ -74924,9 +74964,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         getLoggedInStatus: function getLoggedInStatus(state) {
             return state.isLoggedIn;
-        },
-        getRouteList: function getRouteList(state) {
-            return state.routeList;
         }
     }
 });

@@ -7,39 +7,13 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
-        user: null,
-        routeList: [
-            {
-                title: "Clock in",
-                to: "/clock/in",
-                show: !!localStorage.getItem("token")
-            },
-            {
-                title: "Clock out",
-                to: "/clock/out",
-                show: !!localStorage.getItem("token")
-            },
-            {
-                title: "Sign up",
-                to: "/signup",
-                show: !!!localStorage.getItem("token")
-            },
-            {
-                title: "Login",
-                to: "/login",
-                show: !!!localStorage.getItem("token")
-            },
-            {
-                title: "Logout",
-                to: "/logout",
-                show: !!localStorage.getItem("token")
-            }
-        ]
+        user: ""
     },
     mutations: {
         VALIDATE_LOGIN(state, res) {
             const token = res.data.access_token;
             const payload = JSON.parse(atob(token.split(".")[1]));
+            const user = res.data.username;
 
             let api_auth_login = "http://localhost:8000/";
             api_auth_login += "api/jwt/auth/login";
@@ -52,7 +26,10 @@ const store = new Vuex.Store({
                 let signup = payload.iss == api_auth_login;
                 if (login || signup) {
                     localStorage.setItem("token", token);
-                    state.user = res.data.username;
+                    state.isLoggedIn = localStorage.getItem("token", token)
+                        ? true
+                        : false;
+                    state.user = user;
                 }
             }
         },
@@ -62,13 +39,17 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        login(formData) {
+        login({ commit }, formData) {
+            console.log(formData);
             var path = "http://localhost:8000/";
             path += "api/jwt/auth/login";
             axios
                 .post(path, formData)
                 .then(res => commit("VALIDATE_LOGIN", res))
-                .catch(error => console.log(error.response));
+                .catch(error => {
+                    console.log(formData);
+                    console.log(error.response);
+                });
         },
         logout() {
             commit("LOGOUT");
@@ -80,9 +61,6 @@ const store = new Vuex.Store({
         },
         getLoggedInStatus: state => {
             return state.isLoggedIn;
-        },
-        getRouteList: state => {
-            return state.routeList;
         }
     }
 });

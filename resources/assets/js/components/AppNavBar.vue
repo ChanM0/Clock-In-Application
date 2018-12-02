@@ -4,8 +4,13 @@
     <v-toolbar-title>SPA-Forum</v-toolbar-title>
     <v-spacer></v-spacer>
     <div class="hidden-sm-and-down">
-      <router-link v-for="item in routeList" :key="item.title" :to="item.to" v-if="item.show">
-        <v-btn flat>{{item.title}}</v-btn>
+      <router-link
+        v-for="routeView in routeList"
+        :key="routeView.title"
+        :to="routeView.to"
+        v-if="routeView.show"
+      >
+        <v-btn flat>{{routeView.title}}</v-btn>
       </router-link>
     </div>
   </v-toolbar>
@@ -13,10 +18,71 @@
  <script>
 import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      routeList: [
+        {
+          title: "Clock in",
+          to: "/clock/in",
+          show: this.$store.getters.getLoggedInStatus
+        },
+        {
+          title: "Clock out",
+          to: "/clock/out",
+          show: this.$store.getters.getLoggedInStatus
+        },
+        {
+          title: "Sign up",
+          to: "/signup",
+          show: !this.$store.getters.getLoggedInStatus
+        },
+        {
+          title: "Login",
+          to: "/login",
+          show: !this.$store.getters.getLoggedInStatus
+        },
+        {
+          title: "Logout",
+          to: "/logout",
+          show: this.$store.getters.getLoggedInStatus
+        }
+      ]
+    };
+  },
   computed: {
-    // ...mapGetters(["getRouteList"]),
-    routeList: function() {
-      return this.$store.getters.getRouteList;
+    ...mapGetters(["getLoggedInStatus"])
+  },
+  watch: {
+    getLoggedInStatus() {
+      console.log("hello i am beeing watch");
+      var show = this.$store.getters.getLoggedInStatus;
+      this.routeList = [
+        {
+          title: "Clock in",
+          to: "/clock/in",
+          show: show
+        },
+        {
+          title: "Clock out",
+          to: "/clock/out",
+          show: show
+        },
+        {
+          title: "Sign up",
+          to: "/signup",
+          show: !show
+        },
+        {
+          title: "Login",
+          to: "/login",
+          show: !show
+        },
+        {
+          title: "Logout",
+          to: "/logout",
+          show: show
+        }
+      ];
     }
   }
 };
