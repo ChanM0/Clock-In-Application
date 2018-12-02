@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -25,13 +26,13 @@ export default {
     };
   },
   created() {
-    if (store.getters.getLoggedInStatus) {
+    if (this.$store.getters.getLoggedInStatus) {
       this.$router.push({ name: "landingPage" });
     }
   },
   methods: {
     login() {
-      store.dispatch("login", this.form);
+      this.$store.dispatch("login", this.form);
       this.$router.push({ name: "navigation" });
     },
     recomputeItems() {

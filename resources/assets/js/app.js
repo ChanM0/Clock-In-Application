@@ -12,6 +12,7 @@ import Vuetify from "vuetify";
 
 Vue.use(Vuetify);
 
+import { mapGetters } from "vuex";
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,10 +21,10 @@ Vue.use(Vuetify);
 
 Vue.component("LandingPage", require("./components/LandingPage.vue"));
 import router from "./Router/router.js";
-// import store from "./Store/store.js";
+import store from "./Store/store.js";
 
 const app = new Vue({
     el: "#app",
-    router
-    // store
+    router,
+    store
 });

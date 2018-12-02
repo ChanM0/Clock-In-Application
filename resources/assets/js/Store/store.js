@@ -9,11 +9,31 @@ const store = new Vuex.Store({
         isLoggedIn: !!localStorage.getItem("token"),
         user: null,
         routeList: [
-            { title: "Clock in", to: "/clock/in", show: state.isLoggedIn },
-            { title: "Clock out", to: "/clock/out", show: state.isLoggedIn },
-            { title: "Sign up", to: "/signup", show: !state.isLoggedIn },
-            { title: "Login", to: "/login", show: !state.isLoggedIn },
-            { title: "Logout", to: "/logout", show: state.isLoggedIn }
+            {
+                title: "Clock in",
+                to: "/clock/in",
+                show: !!localStorage.getItem("token")
+            },
+            {
+                title: "Clock out",
+                to: "/clock/out",
+                show: !!localStorage.getItem("token")
+            },
+            {
+                title: "Sign up",
+                to: "/signup",
+                show: !!!localStorage.getItem("token")
+            },
+            {
+                title: "Login",
+                to: "/login",
+                show: !!!localStorage.getItem("token")
+            },
+            {
+                title: "Logout",
+                to: "/logout",
+                show: !!localStorage.getItem("token")
+            }
         ]
     },
     mutations: {
@@ -55,14 +75,14 @@ const store = new Vuex.Store({
         }
     },
     getters: {
-        getUser() {
-            return this.$state.user;
+        getUser: state => {
+            return state.user;
         },
-        getLoggedInStatus() {
-            return this.$state.isLoggedIn;
+        getLoggedInStatus: state => {
+            return state.isLoggedIn;
         },
-        getRouteList() {
-            return this.$state.routeList;
+        getRouteList: state => {
+            return state.routeList;
         }
     }
 });

@@ -11,9 +11,13 @@
   </v-toolbar>
 </template>
  <script>
+import { mapGetters } from "vuex";
 export default {
   computed: {
-    routeList: store.getters.getRoutelList()
+    // ...mapGetters(["getRouteList"]),
+    routeList: function() {
+      return this.$store.getters.getRouteList;
+    }
   }
 };
 </script>

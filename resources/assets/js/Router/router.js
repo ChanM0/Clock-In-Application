@@ -5,10 +5,10 @@ Vue.use(VueRouter);
 import login from "../components/Forms/Login";
 
 const routes = [
-    // {
-    //     path: "/",
-    //     name: "landingPage"
-    // },
+    {
+        path: "/",
+        name: "landingPage"
+    },
     {
         path: "/login",
         component: login,
@@ -41,7 +41,7 @@ const routes = [
     // }
 ];
 const router = new VueRouter({
-    mode: history,
+    // mode: history,
     routes // short for `routes: routes`
 });
 export default router;
