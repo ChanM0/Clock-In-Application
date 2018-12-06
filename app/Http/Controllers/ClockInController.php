@@ -34,8 +34,10 @@ class ClockInController extends Controller
      */
     public function clockOut(Request $request)
     {
+
         $dataArray['user_id'] = $request->user_id;
-        $dataArray['time_out'] = $request->time_out;
+        $dataArray['time_out'] = $request->time;
+
         return $this->clockInRetriever->clockOut($dataArray);
     }
      // Admin Methods

@@ -49,6 +49,9 @@ const store = new Vuex.Store({
         },
         CLOCKIN(state, res) {
             console.log(res);
+        },
+        CLOCKOUT(state, res) {
+            console.log(res);
         }
     },
     actions: {
@@ -82,6 +85,15 @@ const store = new Vuex.Store({
             axios
                 .post(path, data)
                 .then(res => commit("CLOCKIN", res))
+                .catch(error => console.log(error.response.data));
+        },
+        clockout({ commit }, data) {
+            console.log(data);
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/out";
+            axios
+                .put(path, data)
+                .then(res => commit("CLOCKOUT", res))
                 .catch(error => console.log(error.response.data));
         }
     },

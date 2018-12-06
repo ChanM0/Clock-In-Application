@@ -72012,9 +72012,12 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Forms_signup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Forms_signup__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ClockInForms_ClockOut__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ClockInForms_ClockOut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_ClockInForms_ClockOut__);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
+
 
 
 
@@ -72040,11 +72043,11 @@ var routes = [{
     path: "/clock/in",
     component: __WEBPACK_IMPORTED_MODULE_5__components_ClockInForms_ClockIn___default.a,
     name: "clockIn"
-    // {
-    //     path: "/clockOut",
-    //     component: login
-    //     // name:""
-    // },
+}, {
+    path: "/clock/out",
+    component: __WEBPACK_IMPORTED_MODULE_6__components_ClockInForms_ClockOut___default.a
+    // name:""
+
     // {
     //     path: "/admin/all/logs",
     //     component: login
@@ -75534,6 +75537,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         CLOCKIN: function CLOCKIN(state, res) {
             console.log(res);
+        },
+        CLOCKOUT: function CLOCKOUT(state, res) {
+            console.log(res);
         }
     },
     actions: {
@@ -75577,6 +75583,18 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             }).catch(function (error) {
                 return console.log(error.response.data);
             });
+        },
+        clockout: function clockout(_ref5, data) {
+            var commit = _ref5.commit;
+
+            console.log(data);
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/out";
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.put(path, data).then(function (res) {
+                return commit("CLOCKOUT", res);
+            }).catch(function (error) {
+                return console.log(error.response.data);
+            });
         }
     },
     getters: {
@@ -75602,6 +75620,246 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(87)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(89)
+/* template */
+var __vue_template__ = __webpack_require__(90)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ClockInForms/ClockOut.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f376d828", Component.options)
+  } else {
+    hotAPI.reload("data-v-f376d828", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(88);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("02cf3a7a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f376d828\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ClockOut.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f376d828\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ClockOut.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.text-xs-center {\n  padding: 15%;\n  -webkit-text-emphasis: size;\n          text-emphasis: size;\n  font-size: 25pt;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus"])),
+  watch: {
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello i am beeing watch:clockin");
+      this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
+    }
+  },
+  created: function created() {
+    // if (this.$store.getters.getLoggedInStatus != false) {
+    //   this.$router.push({ name: "landingPage" });
+    // }
+  },
+
+  methods: {
+    addZero: function addZero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    },
+    getTime: function getTime() {
+      var d = new Date();
+      var h = this.addZero(d.getHours());
+      var m = this.addZero(d.getMinutes());
+      var s = this.addZero(d.getSeconds());
+      return h + ":" + m + ":" + s;
+    },
+    clockout: function clockout() {
+      var data = {
+        user_id: this.$store.getters.getUserId,
+        time: this.getTime()
+      };
+      this.$store.dispatch("clockout", data);
+    },
+    redirectToNavigation: function redirectToNavigation(status) {
+      console.log(status);
+      if (status == false) {
+        this.$router.push({ name: "landingPage" });
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    { staticClass: "pa-0", attrs: { fluid: "" } },
+    [
+      _c(
+        "v-form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.clockout($event)
+            }
+          }
+        },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "", "align-center": "" } },
+            [
+              _c("v-flex", { attrs: { m12: "" } }, [
+                _c("div", { staticClass: "text-xs-center" }, [
+                  _vm._v("Clock Out\n          "),
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            color: "primary",
+                            type: "submit",
+                            fab: "",
+                            large: ""
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("alarm")])],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f376d828", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -28,7 +28,7 @@ class ClockInDiService implements ClockInDiInterface
     // add logic for double checkin ins
         $dayOf = $this->getCurrentDay();
 
-        $time_in = $this->getCurrentDay() . ' ' . $dataArray['time_in'];
+        $time_in = $dayOf . ' ' . $dataArray['time_in'];
 
         $userClockIn = new ClockIn;
         $userClockIn->user_id = $dataArray['user_id'];
@@ -43,7 +43,7 @@ class ClockInDiService implements ClockInDiInterface
 
         $dayOf = $this->getCurrentDay();
 
-        $timeOut = $this->sanitizeRequest($dataArray['time_out']);
+        $timeOut = $dayOf . ' ' . $dataArray['time_out'];
 
      // catch exception;
         $userClockOut = ClockIn::where('user_id', $dataArray['user_id'])->where('day_of', $dayOf)->firstOrFail();
