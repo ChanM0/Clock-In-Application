@@ -7,13 +7,15 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
-        user: null
+        username: localStorage.getItem("username"),
+        userId: localStorage.getItem("userId")
     },
     mutations: {
         VALIDATE_LOGIN(state, res) {
             const token = res.data.access_token;
             const payload = JSON.parse(atob(token.split(".")[1]));
-            const user = res.data.username;
+            const username = res.data.username;
+            const userId = res.data.user_id;
 
             let api_auth_login = "http://localhost:8000/";
             api_auth_login += "api/jwt/auth/login";
@@ -26,17 +28,24 @@ const store = new Vuex.Store({
                 let signup = payload.iss == api_auth_login;
                 if (login || signup) {
                     localStorage.setItem("token", token);
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("userId", userId);
+
                     state.isLoggedIn = localStorage.getItem("token")
                         ? true
                         : false;
-                    state.user = user;
+                    state.username = username;
+                    state.userId = userId;
                 }
             }
         },
         LOGOUT(state) {
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.removeItem("userId");
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
-            state.user = null;
+            state.username = null;
+            state.userId = null;
         },
         CLOCKIN(state, res) {
             console.log(res);
@@ -66,18 +75,22 @@ const store = new Vuex.Store({
                 .then(res => commit("VALIDATE_LOGIN", res))
                 .catch(error => console.log(error.response.data));
         },
-        clockin({ commit }, dateTime) {
+        clockin({ commit }, data) {
+            console.log(data);
             var path = "http://localhost:8000/";
             path += "api/empl/clock/in";
             axios
-                .post(path, dateTime)
+                .post(path, data)
                 .then(res => commit("CLOCKIN", res))
                 .catch(error => console.log(error.response.data));
         }
     },
     getters: {
-        getUser: state => {
-            return state.user;
+        getUserId: state => {
+            return state.userId;
+        },
+        getUsername: state => {
+            return state.username;
         },
         getLoggedInStatus: state => {
             return state.isLoggedIn;

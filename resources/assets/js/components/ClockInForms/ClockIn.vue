@@ -35,29 +35,24 @@ export default {
     // }
   },
   methods: {
-    getDateTime() {
-      var dateTime = new Date(),
-        dformat =
-          [
-            dateTime.getMonth() + 1,
-            dateTime.getDate(),
-            dateTime.getFullYear()
-          ].join("/") +
-          "__" +
-          [
-            dateTime.getHours() + 14,
-            dateTime.getMinutes(),
-            dateTime.getSeconds()
-          ].join(":");
-      return dateTime;
+    addZero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    },
+    getTime() {
+      var d = new Date();
+      var h = this.addZero(d.getHours());
+      var m = this.addZero(d.getMinutes());
+      var s = this.addZero(d.getSeconds());
+      return h + ":" + m + ":" + s;
     },
     clockin() {
-      let data = [
-        {
-          time_in: this.getDateTime(),
-          token: this.$store.getters.getToken
-        }
-      ];
+      let data = {
+        user_id: this.$store.getters.getUserId,
+        time: this.getTime()
+      };
       this.$store.dispatch("clockin", data);
     },
     redirectToNavigation(status) {

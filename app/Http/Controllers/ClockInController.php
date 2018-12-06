@@ -22,7 +22,7 @@ class ClockInController extends Controller
     public function clockIn(Request $request)
     {
         $dataArray['user_id'] = $request->user_id;
-        $dataArray['time_in'] = $request->time_in;
+        $dataArray['time_in'] = $request->time;
 
         return $this->clockInRetriever->clockIn($dataArray);
     }
