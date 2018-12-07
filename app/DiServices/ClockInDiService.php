@@ -17,15 +17,29 @@ class ClockInDiService implements ClockInDiInterface
         return $date;
     }
 
+    private function findUserByUserId($dayOf, $userId)
+    {
+        $hasUserClockIn = ClockIn::where('user_id', $userId)->where('day_of', $dayOf)->first();
+
+        return $hasUserClockIn;
+    }
+
     public function clockIn($dataArray)
     {
-    // add logic for double checkin ins
         $dayOf = $this->getCurrentDay();
+
+        $userId = $dataArray['user_id'];
 
         $time_in = $dayOf . ' ' . $dataArray['time_in'];
 
+        $hasUserClockIn = $this->findUserByUserId($dayOf, $userId);
+
+        if ($hasUserClockIn != null) {
+            return response('User has already clocked in!', 400);
+        }
+
         $userClockIn = new ClockIn;
-        $userClockIn->user_id = $dataArray['user_id'];
+        $userClockIn->user_id = $userId;
         $userClockIn->time_in = $time_in;
         $userClockIn->day_of = $dayOf;
         $userClockIn->save();
@@ -34,17 +48,20 @@ class ClockInDiService implements ClockInDiInterface
     }
     public function clockOut($dataArray)
     {
-
         $dayOf = $this->getCurrentDay();
+
+        $userId = $dataArray['user_id'];
 
         $timeOut = $dayOf . ' ' . $dataArray['time_out'];
 
-     // catch exception;
-        $userClockOut = ClockIn::where('user_id', $dataArray['user_id'])->where('day_of', $dayOf)->firstOrFail();
+        $hasUserClockIn = $this->findUserByUserId($dayOf, $userId);
 
-        $userClockOut->time_out = $timeOut;
-        $userClockOut->save();
+        if ($hasUserClockIn->time_out != null) {
+            return response('User has already clocked out!', 400);
+        }
 
+        $hasUserClockIn->time_out = $timeOut;
+        $hasUserClockIn->save();
 
         return response('Clock Out Successful', 200);
     }
