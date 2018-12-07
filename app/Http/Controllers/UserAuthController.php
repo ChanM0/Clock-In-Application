@@ -91,6 +91,12 @@ class UserAuthController extends Controller
     {
         return $this->respondWithToken(auth()->refresh());
     }
+
+    public function getAllUsers()
+    {
+        return User::all();
+    }
+
     /**
      * Get the token array structure.
      *

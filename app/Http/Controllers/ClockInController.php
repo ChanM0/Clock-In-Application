@@ -65,4 +65,5 @@ class ClockInController extends Controller
 
         return $this->clockInRetriever->getAllLogsOnThisDay($dataArray);
     }
+
 }
