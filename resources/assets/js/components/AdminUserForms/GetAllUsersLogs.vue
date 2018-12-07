@@ -1,18 +1,18 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="populateUsersTable">
-      <v-btn color="green" type="submit">Get All Users</v-btn>
+    <v-form @submit.prevent="populateUsersLogs">
+      <v-btn color="green" type="submit">Get All logs for user: {{username}}</v-btn>
     </v-form>
     <div>
-      <ul v-for="user in users" :key="user.id">
-        <li>
-          <h4>
-            <router-link
-              :to="{name:'getAllUsersLogs', params:{username:user.username}}"
-            >Get all logs from: {{user.username}}</router-link>
-          </h4>
+      <ul>
+        <li v-for="log in userlogs" :key="log.id">
+          <ol>
+            <li>{{log.time_in}}</li>
+            <li>{{log.time_out}}</li>
+            <li>{{log.day_of}}</li>
+          </ol>
+          <br>
         </li>
-        <br>
       </ul>
     </div>
   </v-container>
@@ -23,15 +23,16 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      users: []
+      username: this.$route.params.username,
+      userlogs: null
     };
   },
   computed: {
-    ...mapGetters(["getLoggedInStatus", "getUserList"])
+    ...mapGetters(["getLoggedInStatus", "getAllUserLogs"])
   },
   watch: {
-    getUserList() {
-      this.users = this.$store.getters.getUserList;
+    getAllUserLogs() {
+      this.userlogs = this.$store.getters.getAllUserLogs;
     },
     getLoggedInStatus() {
       console.log("hello redirect");
@@ -46,8 +47,9 @@ export default {
     this.users = this.$store.getters.getUserList;
   },
   methods: {
-    populateUsersTable() {
-      this.$store.dispatch("populateUsersList");
+    populateUsersLogs() {
+      let data = { username: this.username };
+      this.$store.dispatch("getAllUsersLogs", data);
     },
     redirectToNavigation(status) {
       // if the user is logged out then return to landing page, if the user is logged then rediredct to welcome page
@@ -57,8 +59,7 @@ export default {
     }
   },
   mounted() {
-    console.log("hello kmounted");
-    this.$store.dispatch("fetchUserList");
+    this.$store.dispatch("fetchAllUsersLogs");
   }
 };
 </script>

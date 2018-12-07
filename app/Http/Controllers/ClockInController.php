@@ -49,8 +49,7 @@ class ClockInController extends Controller
      */
     public function getAllUsersLogs(Request $request)
     {
-        $dataArray['user_id'] = $request->user_id;
-
+        $dataArray['username'] = $request->username;
         return $this->clockInRetriever->getAllUsersLogs($dataArray);
     }
     /**

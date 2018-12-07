@@ -9,7 +9,8 @@ const store = new Vuex.Store({
         isLoggedIn: !!localStorage.getItem("token"),
         username: localStorage.getItem("username"),
         userId: localStorage.getItem("userId"),
-        userList: {}
+        userList: {},
+        allUsersLogs: {}
     },
     mounted() {
         if (localStorage.getItem("userList")) {
@@ -49,12 +50,12 @@ const store = new Vuex.Store({
                 }
             }
         },
-        LOGOUT(state, res) {
+        LOGOUT(state) {
             localStorage.clear();
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.username = null;
             state.userId = null;
-            console.log(res);
+            // console.log(res);/
         },
         CLOCKIN(state, res) {
             console.log(res);
@@ -71,6 +72,16 @@ const store = new Vuex.Store({
         FETCHUSERLIST(state) {
             var data = JSON.parse(localStorage.getItem("userList"));
             state.userList = data;
+        },
+        GETALLUSERSLOGS(state, res) {
+            state.allUsersLogs = res;
+            console.log(res);
+            res = JSON.stringify(res);
+            localStorage.setItem("allUsersLogs", res);
+        },
+        FETCHALLUSERSLOGS(state) {
+            var data = JSON.parse(localStorage.getItem("allUsersLogs"));
+            state.allUsersLogs = data;
         }
     },
     actions: {
@@ -87,14 +98,15 @@ const store = new Vuex.Store({
                 });
         },
         logout({ commit }) {
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/logout";
-            axios
-                .post(path)
-                .then(res => commit("LOGOUT", res))
-                .catch(error => {
-                    console.log(error.response);
-                });
+            // var path = "http://localhost:8000/";
+            // path += "api/jwt/auth/logout";
+            // axios
+            //     .post(path)
+            //     .then(res => commit("LOGOUT", res))
+            //     .catch(error => {
+            //         console.log(error.response);
+            //     });
+            commit("LOGOUT");
         },
         signup({ commit }, formData) {
             var path = "http://localhost:8000/";
@@ -134,6 +146,23 @@ const store = new Vuex.Store({
         },
         fetchUserList({ commit }) {
             commit("FETCHUSERLIST");
+        },
+        getAllUsersLogs({ commit }, data) {
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/all/logs";
+            console.log("BEGIN: GetAllUsersLog");
+            console.log(data);
+            console.log("END: GetAllUsersLog");
+            axios
+                .post(path, data)
+                .then(res => {
+                    console.log(res);
+                    commit("GETALLUSERSLOGS", res.data);
+                })
+                .catch(error => console.log(error.response.data));
+        },
+        fetchAllUsersLogs({ commit }) {
+            commit("FETCHALLUSERSLOGS");
         }
     },
     getters: {
@@ -150,7 +179,12 @@ const store = new Vuex.Store({
             return localStorage.getItem("token");
         },
         getUserList: state => {
+            console.log(state.userList);
             return state.userList;
+        },
+        getAllUserLogs: state => {
+            console.log(state.allUsersLogs);
+            return state.allUsersLogs;
         }
     }
 });

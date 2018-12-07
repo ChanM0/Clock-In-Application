@@ -9,6 +9,8 @@ import signup from "../components/Forms/signup";
 import clockIn from "../components/ClockInForms/ClockIn";
 import clockOut from "../components/ClockInForms/ClockOut";
 import listAllUsers from "../components/AdminUserForms/ListAllUsers";
+import getAllUsersLogs from "../components/AdminUserForms/GetAllUsersLogs";
+import getLogsFromThisDay from "../components/AdminUserForms/GetLogsOnThisDay";
 
 const routes = [
     {
@@ -47,19 +49,19 @@ const routes = [
     },
     {
         path: "/admin/all/users",
-        component: listAllUsers
-        // name:""
+        component: listAllUsers,
+        name: "listAllUsers"
+    },
+    {
+        path: "/admin/day/logs",
+        component: getLogsFromThisDay,
+        name: "getLogsFromThisDay"
+    },
+    {
+        path: "/admin/logs/:username",
+        component: getAllUsersLogs,
+        name: "getAllUsersLogs"
     }
-    // {
-    //     path: "/admin/all/logs",
-    //     component: login
-    //     // name:""
-    // }
-    // {
-    //     path: "/admin/user/logs",
-    //     component: login
-    //     // name:""
-    // }
 ];
 const router = new VueRouter({
     // mode: history,

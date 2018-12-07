@@ -71694,7 +71694,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -71730,6 +71730,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data: function data() {
     return {
       routeList: [{
+        title: "All Users",
+        to: "/admin/all/users",
+        show: this.$store.getters.getLoggedInStatus
+      }, {
+        title: "Get Logs From This Day",
+        to: "/admin/day/logs",
+        show: this.$store.getters.getLoggedInStatus
+      }, {
         title: "Clock in",
         to: "/clock/in",
         show: this.$store.getters.getLoggedInStatus
@@ -71748,10 +71756,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }, {
         title: "Logout",
         to: "/logout",
-        show: this.$store.getters.getLoggedInStatus
-      }, {
-        title: "All Users",
-        to: "/admin/all/users",
         show: this.$store.getters.getLoggedInStatus
       }]
     };
@@ -71763,6 +71767,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       console.log("hello i am beeing watch");
       var show = this.$store.getters.getLoggedInStatus;
       this.routeList = [{
+        title: "Get Logs From This Day",
+        to: "/admin/day/logs",
+        show: show
+      }, {
+        title: "All Users",
+        to: "/admin/all/users",
+        show: show
+      }, {
         title: "Clock in",
         to: "/clock/in",
         show: show
@@ -71781,10 +71793,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }, {
         title: "Logout",
         to: "/logout",
-        show: show
-      }, {
-        title: "All Users",
-        to: "/admin/all/users",
         show: show
       }];
     }
@@ -72026,9 +72034,15 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_ClockInForms_ClockOut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_ClockInForms_ClockOut__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_AdminUserForms_ListAllUsers__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_AdminUserForms_ListAllUsers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_AdminUserForms_ListAllUsers__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_AdminUserForms_GetAllUsersLogs__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_AdminUserForms_GetAllUsersLogs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_AdminUserForms_GetAllUsersLogs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_AdminUserForms_GetLogsOnThisDay__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_AdminUserForms_GetLogsOnThisDay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_AdminUserForms_GetLogsOnThisDay__);
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
+
+
 
 
 
@@ -72067,19 +72081,16 @@ var routes = [{
     name: "clockOut"
 }, {
     path: "/admin/all/users",
-    component: __WEBPACK_IMPORTED_MODULE_8__components_AdminUserForms_ListAllUsers___default.a
-    // name:""
-
-    // {
-    //     path: "/admin/all/logs",
-    //     component: login
-    //     // name:""
-    // }
-    // {
-    //     path: "/admin/user/logs",
-    //     component: login
-    //     // name:""
-    // }
+    component: __WEBPACK_IMPORTED_MODULE_8__components_AdminUserForms_ListAllUsers___default.a,
+    name: "listAllUsers"
+}, {
+    path: "/admin/day/logs",
+    component: __WEBPACK_IMPORTED_MODULE_10__components_AdminUserForms_GetLogsOnThisDay___default.a,
+    name: "getLogsFromThisDay"
+}, {
+    path: "/admin/logs/:username",
+    component: __WEBPACK_IMPORTED_MODULE_9__components_AdminUserForms_GetAllUsersLogs___default.a,
+    name: "getAllUsersLogs"
 }];
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     // mode: history,
@@ -75036,7 +75047,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    isUserLoggedIn = this.$store.getters.getLoggedInStatus;
+    var isUserLoggedIn = this.$store.getters.getLoggedInStatus;
     if (isUserLoggedIn == false) {
       this.$router.push({ name: "landingPage" });
     }
@@ -75836,7 +75847,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -75864,27 +75875,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: null
+      users: []
     };
   },
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus", "getUserList"])),
   watch: {
     getUserList: function getUserList() {
-      console.log(this.$store.getters.userList);
-      this.users = this.$store.getters.userList;
+      this.users = this.$store.getters.getUserList;
+    },
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello redirect");
+      this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
     }
   },
-  created: function created() {},
+  created: function created() {
+    // if the user is logged out then redirect to landing page
+    if (this.$store.getters.getLoggedInStatus == false) {
+      this.$router.push({ name: "landingPage" });
+    }
+    this.users = this.$store.getters.getUserList;
+  },
 
   methods: {
     populateUsersTable: function populateUsersTable() {
       this.$store.dispatch("populateUsersList");
+    },
+    redirectToNavigation: function redirectToNavigation(status) {
+      // if the user is logged out then return to landing page, if the user is logged then rediredct to welcome page
+      if (status == false) {
+        this.$router.push({ name: "landingPage" });
+      }
     }
   },
   mounted: function mounted() {
@@ -75920,6 +75952,36 @@ var render = function() {
           ])
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        _vm._l(_vm.users, function(user) {
+          return _c("ul", { key: user.id }, [
+            _c("li", [
+              _c(
+                "h4",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "getAllUsersLogs",
+                          params: { username: user.username }
+                        }
+                      }
+                    },
+                    [_vm._v("Get all logs from: " + _vm._s(user.username))]
+                  )
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("br")
+          ])
+        })
       )
     ],
     1
@@ -75956,7 +76018,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         isLoggedIn: !!localStorage.getItem("token"),
         username: localStorage.getItem("username"),
         userId: localStorage.getItem("userId"),
-        userList: {}
+        userList: {},
+        allUsersLogs: {}
     },
     mounted: function mounted() {
         if (localStorage.getItem("userList")) {
@@ -75995,12 +76058,12 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 }
             }
         },
-        LOGOUT: function LOGOUT(state, res) {
+        LOGOUT: function LOGOUT(state) {
             localStorage.clear();
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.username = null;
             state.userId = null;
-            console.log(res);
+            // console.log(res);/
         },
         CLOCKIN: function CLOCKIN(state, res) {
             console.log(res);
@@ -76017,6 +76080,16 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         FETCHUSERLIST: function FETCHUSERLIST(state) {
             var data = JSON.parse(localStorage.getItem("userList"));
             state.userList = data;
+        },
+        GETALLUSERSLOGS: function GETALLUSERSLOGS(state, res) {
+            state.allUsersLogs = res;
+            console.log(res);
+            res = JSON.stringify(res);
+            localStorage.setItem("allUsersLogs", res);
+        },
+        FETCHALLUSERSLOGS: function FETCHALLUSERSLOGS(state) {
+            var data = JSON.parse(localStorage.getItem("allUsersLogs"));
+            state.allUsersLogs = data;
         }
     },
     actions: {
@@ -76036,13 +76109,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         logout: function logout(_ref2) {
             var commit = _ref2.commit;
 
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/logout";
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path).then(function (res) {
-                return commit("LOGOUT", res);
-            }).catch(function (error) {
-                console.log(error.response);
-            });
+            // var path = "http://localhost:8000/";
+            // path += "api/jwt/auth/logout";
+            // axios
+            //     .post(path)
+            //     .then(res => commit("LOGOUT", res))
+            //     .catch(error => {
+            //         console.log(error.response);
+            //     });
+            commit("LOGOUT");
         },
         signup: function signup(_ref3, formData) {
             var commit = _ref3.commit;
@@ -76094,6 +76169,26 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref7.commit;
 
             commit("FETCHUSERLIST");
+        },
+        getAllUsersLogs: function getAllUsersLogs(_ref8, data) {
+            var commit = _ref8.commit;
+
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/all/logs";
+            console.log("BEGIN: GetAllUsersLog");
+            console.log(data);
+            console.log("END: GetAllUsersLog");
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, data).then(function (res) {
+                console.log(res);
+                commit("GETALLUSERSLOGS", res.data);
+            }).catch(function (error) {
+                return console.log(error.response.data);
+            });
+        },
+        fetchAllUsersLogs: function fetchAllUsersLogs(_ref9) {
+            var commit = _ref9.commit;
+
+            commit("FETCHALLUSERSLOGS");
         }
     },
     getters: {
@@ -76110,7 +76205,12 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             return localStorage.getItem("token");
         },
         getUserList: function getUserList(state) {
+            console.log(state.userList);
             return state.userList;
+        },
+        getAllUserLogs: function getAllUserLogs(state) {
+            console.log(state.allUsersLogs);
+            return state.allUsersLogs;
         }
     }
 });
@@ -76257,6 +76357,363 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-410d367b", module.exports)
+  }
+}
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(102)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(104)
+/* template */
+var __vue_template__ = __webpack_require__(105)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/AdminUserForms/GetAllUsersLogs.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1a003709", Component.options)
+  } else {
+    hotAPI.reload("data-v-1a003709", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(103);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("0fa26dbb", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1a003709\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GetAllUsersLogs.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1a003709\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GetAllUsersLogs.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 104 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      username: this.$route.params.username,
+      userlogs: null
+    };
+  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getLoggedInStatus", "getAllUserLogs"])),
+  watch: {
+    getAllUserLogs: function getAllUserLogs() {
+      this.userlogs = this.$store.getters.getAllUserLogs;
+    },
+    getLoggedInStatus: function getLoggedInStatus() {
+      console.log("hello redirect");
+      this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
+    }
+  },
+  created: function created() {
+    // if the user is logged out then redirect to landing page
+    if (this.$store.getters.getLoggedInStatus == false) {
+      this.$router.push({ name: "landingPage" });
+    }
+    this.users = this.$store.getters.getUserList;
+  },
+
+  methods: {
+    populateUsersLogs: function populateUsersLogs() {
+      var data = { username: this.username };
+      this.$store.dispatch("getAllUsersLogs", data);
+    },
+    redirectToNavigation: function redirectToNavigation(status) {
+      // if the user is logged out then return to landing page, if the user is logged then rediredct to welcome page
+      if (status == false) {
+        this.$router.push({ name: "landingPage" });
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.$store.dispatch("fetchAllUsersLogs");
+  }
+});
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-container",
+    [
+      _c(
+        "v-form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.populateUsersLogs($event)
+            }
+          }
+        },
+        [
+          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
+            _vm._v("Get All logs for user: " + _vm._s(_vm.username))
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "ul",
+          _vm._l(_vm.userlogs, function(log) {
+            return _c("li", { key: log.id }, [
+              _c("ol", [
+                _c("li", [_vm._v(_vm._s(log.time_in))]),
+                _vm._v(" "),
+                _c("li", [_vm._v(_vm._s(log.time_out))]),
+                _vm._v(" "),
+                _c("li", [_vm._v(_vm._s(log.day_of))])
+              ]),
+              _vm._v(" "),
+              _c("br")
+            ])
+          })
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1a003709", module.exports)
+  }
+}
+
+/***/ }),
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(112)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(114)
+/* template */
+var __vue_template__ = __webpack_require__(115)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/AdminUserForms/GetLogsOnThisDay.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-52a2dbe6", Component.options)
+  } else {
+    hotAPI.reload("data-v-52a2dbe6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(113);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("66acefbe", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-52a2dbe6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GetLogsOnThisDay.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-52a2dbe6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GetLogsOnThisDay.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-container", [_c("h1", [_vm._v("hello")])])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-52a2dbe6", module.exports)
   }
 }
 

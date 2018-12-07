@@ -4,7 +4,7 @@
 import { mapGetters } from "vuex";
 export default {
   created() {
-    isUserLoggedIn = this.$store.getters.getLoggedInStatus;
+    let isUserLoggedIn = this.$store.getters.getLoggedInStatus;
     if (isUserLoggedIn == false) {
       this.$router.push({ name: "landingPage" });
     }

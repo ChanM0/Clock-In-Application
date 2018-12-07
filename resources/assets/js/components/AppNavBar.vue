@@ -21,6 +21,16 @@ export default {
     return {
       routeList: [
         {
+          title: "All Users",
+          to: "/admin/all/users",
+          show: this.$store.getters.getLoggedInStatus
+        },
+        {
+          title: "Get Logs From This Day",
+          to: "/admin/day/logs",
+          show: this.$store.getters.getLoggedInStatus
+        },
+        {
           title: "Clock in",
           to: "/clock/in",
           show: this.$store.getters.getLoggedInStatus
@@ -43,11 +53,6 @@ export default {
         {
           title: "Logout",
           to: "/logout",
-          show: this.$store.getters.getLoggedInStatus
-        },
-        {
-          title: "All Users",
-          to: "/admin/all/users",
           show: this.$store.getters.getLoggedInStatus
         }
       ]
@@ -62,6 +67,16 @@ export default {
       var show = this.$store.getters.getLoggedInStatus;
       this.routeList = [
         {
+          title: "Get Logs From This Day",
+          to: "/admin/day/logs",
+          show: show
+        },
+        {
+          title: "All Users",
+          to: "/admin/all/users",
+          show: show
+        },
+        {
           title: "Clock in",
           to: "/clock/in",
           show: show
@@ -84,11 +99,6 @@ export default {
         {
           title: "Logout",
           to: "/logout",
-          show: show
-        },
-        {
-          title: "All Users",
-          to: "/admin/all/users",
           show: show
         }
       ];

@@ -17,12 +17,6 @@ class ClockInDiService implements ClockInDiInterface
         return $date;
     }
 
-    private function sanitizeRequest($timeIn)
-    {
-        $incorrectDateTimeValue = substr($timeIn, 0, -5);
-        return str_replace('T', ' ', $incorrectDateTimeValue);
-    }
-
     public function clockIn($dataArray)
     {
     // add logic for double checkin ins
@@ -59,19 +53,26 @@ class ClockInDiService implements ClockInDiInterface
   // Admin Methods
     public function getAllUsersLogs($dataArray)
     {
-        $dayOf = $this->getCurrentDay();
-    
-     // Relationship 
-        $userLogs = User::where('id', $dataArray['user_id'])->with('hasManyLogs')->get();
+        // Relationship 
+        $userLogs = User::where('username', $dataArray['username'])->with('hasManyLogs')->get();
+        // return $userLogs->hasManyLogs;
+        $userLogs = $userLogs[0]->hasManyLogs;
+
+        if (!$userLogs) {
+            return response('Not Successful');
+        }
+
         return $userLogs;
     }
 
     public function getAllLogsOnThisDay($dataArray)
     {
-        $userLogs = ClockIn::where('day_of', $dataArray['day_of'])->get();
+        // $dayOf = $this->getCurrentDay();
+
+        $userLogs = ClockIn::where(' day_of ', $dataArray[' day_of '])->get();
 
         if ($userLogs == []) {
-            return response('No data found', 200);
+            return response(' No data found', 200);
 
         }
 
