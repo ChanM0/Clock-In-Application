@@ -26,7 +26,7 @@ export default {
   },
   watch: {
     getLoggedInStatus() {
-      console.log("hello i am beeing watch:Login");
+      // logged in status chagnes then redirect navigation
       this.redirectToNavigation(this.$store.getters.getLoggedInStatus);
     }
   },
@@ -38,15 +38,17 @@ export default {
   methods: {
     login() {
       this.$store.dispatch("login", this.form);
+      // if logged in redirect to welcome page
       if (this.$store.getters.getLoggedInStatus) {
-        this.$router.push({ name: "navigation" });
+        this.$router.push({ name: "welcome" });
       }
     },
     redirectToNavigation(status) {
+      // if the user is logged out then return to landing page, if the user is logged then rediredct to welcome page
       if (status == false) {
         this.$router.push({ name: "landingPage" });
       } else {
-        this.$router.push({ name: "navigation" });
+        this.$router.push({ name: "welcome" });
       }
     }
   }

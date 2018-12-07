@@ -44,6 +44,11 @@ export default {
           title: "Logout",
           to: "/logout",
           show: this.$store.getters.getLoggedInStatus
+        },
+        {
+          title: "All Users",
+          to: "/admin/all/users",
+          show: this.$store.getters.getLoggedInStatus
         }
       ]
     };
@@ -79,6 +84,11 @@ export default {
         {
           title: "Logout",
           to: "/logout",
+          show: show
+        },
+        {
+          title: "All Users",
+          to: "/admin/all/users",
           show: show
         }
       ];

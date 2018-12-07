@@ -30,9 +30,10 @@ export default {
     }
   },
   created() {
-    // if (this.$store.getters.getLoggedInStatus != false) {
-    //   this.$router.push({ name: "landingPage" });
-    // }
+    // if the user is logged out then redirect to landing page
+    if (this.$store.getters.getLoggedInStatus == false) {
+      this.$router.push({ name: "landingPage" });
+    }
   },
   methods: {
     addZero(i) {
@@ -56,7 +57,7 @@ export default {
       this.$store.dispatch("clockout", data);
     },
     redirectToNavigation(status) {
-      console.log(status);
+      // if the user is logged out then return to landing page, if the user is logged then rediredct to welcome page
       if (status == false) {
         this.$router.push({ name: "landingPage" });
       }

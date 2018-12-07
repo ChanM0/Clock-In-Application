@@ -2,16 +2,23 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
+import welcome from "../components/Welcome";
 import login from "../components/Forms/Login";
 import logout from "../components/Forms/logout";
 import signup from "../components/Forms/signup";
 import clockIn from "../components/ClockInForms/ClockIn";
 import clockOut from "../components/ClockInForms/ClockOut";
+import listAllUsers from "../components/AdminUserForms/ListAllUsers";
 
 const routes = [
     {
         path: "/",
         name: "landingPage"
+    },
+    {
+        path: "/welcome",
+        component: welcome,
+        name: "welcome"
     },
     {
         path: "/login",
@@ -35,14 +42,19 @@ const routes = [
     },
     {
         path: "/clock/out",
-        component: clockOut
+        component: clockOut,
+        name: "clockOut"
+    },
+    {
+        path: "/admin/all/users",
+        component: listAllUsers
         // name:""
     }
     // {
     //     path: "/admin/all/logs",
     //     component: login
     //     // name:""
-    // },
+    // }
     // {
     //     path: "/admin/user/logs",
     //     component: login

@@ -8,7 +8,17 @@ const store = new Vuex.Store({
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
         username: localStorage.getItem("username"),
-        userId: localStorage.getItem("userId")
+        userId: localStorage.getItem("userId"),
+        userList: {}
+    },
+    mounted() {
+        if (localStorage.getItem("userList")) {
+            try {
+                this.userList = JSON.parse(localStorage.getItem("userList"));
+            } catch (e) {
+                localStorage.removeItem("userList");
+            }
+        }
     },
     mutations: {
         VALIDATE_LOGIN(state, res) {
@@ -39,19 +49,28 @@ const store = new Vuex.Store({
                 }
             }
         },
-        LOGOUT(state) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.removeItem("userId");
+        LOGOUT(state, res) {
+            localStorage.clear();
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.username = null;
             state.userId = null;
+            console.log(res);
         },
         CLOCKIN(state, res) {
             console.log(res);
         },
         CLOCKOUT(state, res) {
             console.log(res);
+        },
+        POPULATEUSERSLIST(state, res) {
+            state.userList = res;
+            console.log(res);
+            res = JSON.stringify(res);
+            localStorage.setItem("userList", res);
+        },
+        FETCHUSERLIST(state) {
+            var data = JSON.parse(localStorage.getItem("userList"));
+            state.userList = data;
         }
     },
     actions: {
@@ -68,7 +87,14 @@ const store = new Vuex.Store({
                 });
         },
         logout({ commit }) {
-            commit("LOGOUT");
+            var path = "http://localhost:8000/";
+            path += "api/jwt/auth/logout";
+            axios
+                .post(path)
+                .then(res => commit("LOGOUT", res))
+                .catch(error => {
+                    console.log(error.response);
+                });
         },
         signup({ commit }, formData) {
             var path = "http://localhost:8000/";
@@ -95,6 +121,19 @@ const store = new Vuex.Store({
                 .put(path, data)
                 .then(res => commit("CLOCKOUT", res))
                 .catch(error => console.log(error.response.data));
+        },
+        populateUsersList({ commit }) {
+            var path = "http://localhost:8000/";
+            path += "api/jwt/auth/users";
+            axios
+                .post(path)
+                .then(res => {
+                    commit("POPULATEUSERSLIST", res.data);
+                })
+                .catch(error => console.log(error.response.data));
+        },
+        fetchUserList({ commit }) {
+            commit("FETCHUSERLIST");
         }
     },
     getters: {
@@ -109,6 +148,9 @@ const store = new Vuex.Store({
         },
         getToken: state => {
             return localStorage.getItem("token");
+        },
+        getUserList: state => {
+            return state.userList;
         }
     }
 });
