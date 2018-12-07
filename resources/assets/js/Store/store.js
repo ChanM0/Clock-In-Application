@@ -10,7 +10,8 @@ const store = new Vuex.Store({
         username: localStorage.getItem("username"),
         userId: localStorage.getItem("userId"),
         userList: {},
-        allUsersLogs: {}
+        allUsersLogs: {},
+        logsOnThisDay: {}
     },
     mounted() {
         if (localStorage.getItem("userList")) {
@@ -82,6 +83,16 @@ const store = new Vuex.Store({
         FETCHALLUSERSLOGS(state) {
             var data = JSON.parse(localStorage.getItem("allUsersLogs"));
             state.allUsersLogs = data;
+        },
+        GETLOGSONTHISDAY(state, res) {
+            state.logsOnThisDay = res;
+            console.log(res);
+            res = JSON.stringify(res);
+            localStorage.setItem("logsOnThisDay", res);
+        },
+        FETCHLOGSONTHISDAY(state) {
+            var data = JSON.parse(localStorage.getItem("logsOnThisDay"));
+            state.logsOnThisDay = data;
         }
     },
     actions: {
@@ -163,6 +174,23 @@ const store = new Vuex.Store({
         },
         fetchAllUsersLogs({ commit }) {
             commit("FETCHALLUSERSLOGS");
+        },
+        getLogsOnThisDay({ commit }, data) {
+            var path = "http://localhost:8000/";
+            path += "api/empl/clock/day/logs";
+            console.log("BEGIN: GET LOGS ON THIS DAY");
+            console.log(data);
+            console.log("END: GET LOGS ON THIS DAY");
+            axios
+                .post(path, data)
+                .then(res => {
+                    console.log(res);
+                    commit("GETLOGSONTHISDAY", res.data);
+                })
+                .catch(error => console.log(error.response.data));
+        },
+        fetchLogsOnThisDay({ commit }) {
+            commit("FETCHLOGSONTHISDAY");
         }
     },
     getters: {
@@ -185,6 +213,9 @@ const store = new Vuex.Store({
         getAllUserLogs: state => {
             console.log(state.allUsersLogs);
             return state.allUsersLogs;
+        },
+        getLogsOnThisDay: state => {
+            return state.logsOnThisDay;
         }
     }
 });

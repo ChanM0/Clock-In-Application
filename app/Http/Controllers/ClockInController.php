@@ -60,7 +60,8 @@ class ClockInController extends Controller
      */
     public function getAllLogsOnThisDay(Request $request)
     {
-        $dataArray['day_of'] = $request->day_of;
+        // return $request->date;
+        $dataArray['day_of'] = $request->date;
 
         return $this->clockInRetriever->getAllLogsOnThisDay($dataArray);
     }

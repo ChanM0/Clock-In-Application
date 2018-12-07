@@ -69,7 +69,7 @@ class ClockInDiService implements ClockInDiInterface
     {
         // $dayOf = $this->getCurrentDay();
 
-        $userLogs = ClockIn::where(' day_of ', $dataArray[' day_of '])->get();
+        $userLogs = ClockIn::where('day_of', $dataArray['day_of'])->get();
 
         if ($userLogs == []) {
             return response(' No data found', 200);
