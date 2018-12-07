@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClockInResource;
 use Illuminate\Http\Request;
 use App\DiInterfaces\ClockInDiInterface;
 
@@ -50,7 +51,9 @@ class ClockInController extends Controller
     public function getAllUsersLogs(Request $request)
     {
         $dataArray['username'] = $request->username;
-        return $this->clockInRetriever->getAllUsersLogs($dataArray);
+        $data = $this->clockInRetriever->getAllUsersLogs($dataArray);
+        return $data;
+        // $data = ClockInResource::collection($data);
     }
     /**
      * Display the specified resource.
@@ -63,7 +66,9 @@ class ClockInController extends Controller
         // return $request->date;
         $dataArray['day_of'] = $request->date;
 
-        return $this->clockInRetriever->getAllLogsOnThisDay($dataArray);
+        $data = $this->clockInRetriever->getAllLogsOnThisDay($dataArray);
+        return $data;
+        // $data = ClockInResource::collection($data);
     }
 
 }

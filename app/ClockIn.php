@@ -18,4 +18,10 @@ class ClockIn extends Model
     protected $casts = [
         'day_of' => 'date:Y-m-d',
     ];
+
+    public function userIdToUsername()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
 }

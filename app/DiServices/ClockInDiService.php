@@ -71,7 +71,7 @@ class ClockInDiService implements ClockInDiInterface
     public function getAllUsersLogs($dataArray)
     {
         // Relationship 
-        $userLogs = User::where('username', $dataArray['username'])->with('hasManyLogs')->get();
+        $userLogs = User::where('username', $dataArray['username'])->with(['hasManyLogs', 'hasManyLogs.userIdToUsername'])->get();
         // return $userLogs->hasManyLogs;
         $userLogs = $userLogs[0]->hasManyLogs;
 
@@ -84,13 +84,12 @@ class ClockInDiService implements ClockInDiInterface
 
     public function getAllLogsOnThisDay($dataArray)
     {
-        // $dayOf = $this->getCurrentDay();
 
-        $userLogs = ClockIn::where('day_of', $dataArray['day_of'])->get();
+        // $userLogs = ClockIn::where('day_of', $dataArray['day_of'])->get();
+        $userLogs = ClockIn::where('day_of', $dataArray['day_of'])->with('userIdToUsername')->get();
 
         if ($userLogs == []) {
             return response(' No data found', 200);
-
         }
 
         return $userLogs;

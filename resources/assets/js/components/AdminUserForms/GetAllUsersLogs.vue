@@ -6,11 +6,12 @@
     <div>
       <ul>
         <li v-for="log in userlogs" :key="log.id">
-          <ol>
-            <li>{{log.time_in}}</li>
-            <li>{{log.time_out}}</li>
-            <li>{{log.day_of}}</li>
-          </ol>
+          <ul>
+            <li>User: {{log.user_id_to_username.username}}</li>
+            <li>Time In: {{log.time_in}}</li>
+            <li>Time Out: {{log.time_out}}</li>
+          </ul>
+          <br>
           <br>
         </li>
       </ul>

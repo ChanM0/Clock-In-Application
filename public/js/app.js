@@ -76216,7 +76216,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -76230,6 +76230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
 //
 //
 //
@@ -76329,13 +76330,17 @@ var render = function() {
           "ul",
           _vm._l(_vm.userlogs, function(log) {
             return _c("li", { key: log.id }, [
-              _c("ol", [
-                _c("li", [_vm._v(_vm._s(log.time_in))]),
+              _c("ul", [
+                _c("li", [
+                  _vm._v("User: " + _vm._s(log.user_id_to_username.username))
+                ]),
                 _vm._v(" "),
-                _c("li", [_vm._v(_vm._s(log.time_out))]),
+                _c("li", [_vm._v("Time In: " + _vm._s(log.time_in))]),
                 _vm._v(" "),
-                _c("li", [_vm._v(_vm._s(log.day_of))])
+                _c("li", [_vm._v("Time Out: " + _vm._s(log.time_out))])
               ]),
+              _vm._v(" "),
+              _c("br"),
               _vm._v(" "),
               _c("br")
             ])
@@ -76570,12 +76575,14 @@ var render = function() {
           "ul",
           _vm._l(_vm.logsOnThisDay, function(log) {
             return _c("li", { key: log.id }, [
-              _c("ol", [
-                _c("li", [_vm._v(_vm._s(log.time_in))]),
+              _c("ul", [
+                _c("li", [
+                  _vm._v("User: " + _vm._s(log.user_id_to_username.username))
+                ]),
                 _vm._v(" "),
-                _c("li", [_vm._v(_vm._s(log.time_out))]),
+                _c("li", [_vm._v("Time In: " + _vm._s(log.time_in))]),
                 _vm._v(" "),
-                _c("li", [_vm._v(_vm._s(log.day_of))])
+                _c("li", [_vm._v("Time Out: " + _vm._s(log.time_out))])
               ]),
               _vm._v(" "),
               _c("br")

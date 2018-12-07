@@ -33,6 +33,6 @@ Route::group([
 ], function ($router) {
     Route::post('/in', 'ClockInController@clockIn')->name('clockIn');
     Route::put('/out', 'ClockInController@clockOut')->name('clockOut');
-    Route::post('all/logs', 'ClockInController@getAllUsersLogs')->name('getAllUsersLogs');
+    Route::post('/all/logs', 'ClockInController@getAllUsersLogs')->name('getAllUsersLogs');
     Route::post('/day/logs', 'ClockInController@getAllLogsOnThisDay')->name('getAllLogsOnThisDay');
 });
