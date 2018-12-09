@@ -163,6 +163,7 @@ return [
         /** Add new providers */
 
         App\Providers\ClockInServiceProvider::class,
+        App\Providers\UserAuthServiceProvider::class,
 
     ],
 
