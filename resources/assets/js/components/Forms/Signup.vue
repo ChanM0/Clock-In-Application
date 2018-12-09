@@ -54,7 +54,7 @@ export default {
       if (status == false) {
         this.$router.push({ name: "landingPage" });
       } else {
-        this.$router.push({ name: "welcom" });
+        this.$router.push({ name: "welcome" });
       }
     }
   }

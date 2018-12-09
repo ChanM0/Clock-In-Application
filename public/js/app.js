@@ -75324,7 +75324,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       if (status == false) {
         this.$router.push({ name: "landingPage" });
       } else {
-        this.$router.push({ name: "welcom" });
+        this.$router.push({ name: "welcome" });
       }
     }
   }
