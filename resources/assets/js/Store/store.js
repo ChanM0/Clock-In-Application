@@ -29,26 +29,14 @@ const store = new Vuex.Store({
             const username = res.data.username;
             const userId = res.data.user_id;
 
-            let api_auth_login = "http://localhost:8000/";
-            api_auth_login += "api/jwt/auth/login";
-
-            let api_auth_signup = "http://localhost:8000/";
-            api_auth_signup += "api/jwt/auth/signup";
-
             if (payload) {
-                let login = payload.iss == api_auth_signup;
-                let signup = payload.iss == api_auth_login;
-                if (login || signup) {
-                    localStorage.setItem("token", token);
-                    localStorage.setItem("username", username);
-                    localStorage.setItem("userId", userId);
+                localStorage.setItem("token", token);
+                localStorage.setItem("username", username);
+                localStorage.setItem("userId", userId);
 
-                    state.isLoggedIn = localStorage.getItem("token")
-                        ? true
-                        : false;
-                    state.username = username;
-                    state.userId = userId;
-                }
+                state.isLoggedIn = localStorage.getItem("token") ? true : false;
+                state.username = username;
+                state.userId = userId;
             }
         },
         LOGOUT(state) {
@@ -98,8 +86,7 @@ const store = new Vuex.Store({
     actions: {
         login({ commit }, formData) {
             console.log(formData);
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/login";
+            let path = "/api/jwt/auth/login";
             axios
                 .post(path, formData)
                 .then(res => commit("VALIDATE_LOGIN", res))
@@ -109,19 +96,17 @@ const store = new Vuex.Store({
                 });
         },
         logout({ commit }) {
-            // var path = "http://localhost:8000/";
-            // path += "api/jwt/auth/logout";
-            // axios
-            //     .post(path)
-            //     .then(res => commit("LOGOUT", res))
-            //     .catch(error => {
-            //         console.log(error.response);
-            //     });
+            let path = "/api/jwt/auth/logout";
+            axios
+                .post(path)
+                .then(res => commit("LOGOUT", res))
+                .catch(error => {
+                    console.log(error.response);
+                });
             commit("LOGOUT");
         },
         signup({ commit }, formData) {
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/signup";
+            let path = "/api/jwt/auth/signup";
             axios
                 .post(path, formData)
                 .then(res => commit("VALIDATE_LOGIN", res))
@@ -129,8 +114,7 @@ const store = new Vuex.Store({
         },
         clockin({ commit }, data) {
             console.log(data);
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/in";
+            let path = "/api/empl/clock/in";
             axios
                 .post(path, data)
                 .then(res => commit("CLOCKIN", res))
@@ -138,16 +122,14 @@ const store = new Vuex.Store({
         },
         clockout({ commit }, data) {
             console.log(data);
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/out";
+            let path = "/api/empl/clock/out";
             axios
                 .put(path, data)
                 .then(res => commit("CLOCKOUT", res))
                 .catch(error => console.log(error.response.data));
         },
         populateUsersList({ commit }) {
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/users";
+            let path = "/api/jwt/auth/users";
             axios
                 .post(path)
                 .then(res => {
@@ -159,8 +141,7 @@ const store = new Vuex.Store({
             commit("FETCHUSERLIST");
         },
         getAllUsersLogs({ commit }, data) {
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/all/logs";
+            let path = "/api/empl/clock/all/logs";
             console.log("BEGIN: GetAllUsersLog");
             console.log(data);
             console.log("END: GetAllUsersLog");
@@ -176,11 +157,7 @@ const store = new Vuex.Store({
             commit("FETCHALLUSERSLOGS");
         },
         getLogsOnThisDay({ commit }, data) {
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/day/logs";
-            console.log("BEGIN: GET LOGS ON THIS DAY");
-            console.log(data);
-            console.log("END: GET LOGS ON THIS DAY");
+            let path = "/api/empl/clock/day/logs";
             axios
                 .post(path, data)
                 .then(res => {

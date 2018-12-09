@@ -46,7 +46,7 @@ export default {
       this.$store.dispatch("signup", this.form);
       // if logged in redirect to welcome page
       if (this.$store.getters.getLoggedInStatus) {
-        this.$router.push({ name: "welcom" });
+        this.$router.push({ name: "welcome" });
       }
     },
     redirectToNavigation(status) {

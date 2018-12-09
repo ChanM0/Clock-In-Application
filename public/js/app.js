@@ -75316,7 +75316,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.$store.dispatch("signup", this.form);
       // if logged in redirect to welcome page
       if (this.$store.getters.getLoggedInStatus) {
-        this.$router.push({ name: "welcom" });
+        this.$router.push({ name: "welcome" });
       }
     },
     redirectToNavigation: function redirectToNavigation(status) {
@@ -76646,24 +76646,14 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var username = res.data.username;
             var userId = res.data.user_id;
 
-            var api_auth_login = "http://localhost:8000/";
-            api_auth_login += "api/jwt/auth/login";
-
-            var api_auth_signup = "http://localhost:8000/";
-            api_auth_signup += "api/jwt/auth/signup";
-
             if (payload) {
-                var login = payload.iss == api_auth_signup;
-                var signup = payload.iss == api_auth_login;
-                if (login || signup) {
-                    localStorage.setItem("token", token);
-                    localStorage.setItem("username", username);
-                    localStorage.setItem("userId", userId);
+                localStorage.setItem("token", token);
+                localStorage.setItem("username", username);
+                localStorage.setItem("userId", userId);
 
-                    state.isLoggedIn = localStorage.getItem("token") ? true : false;
-                    state.username = username;
-                    state.userId = userId;
-                }
+                state.isLoggedIn = localStorage.getItem("token") ? true : false;
+                state.username = username;
+                state.userId = userId;
             }
         },
         LOGOUT: function LOGOUT(state) {
@@ -76715,8 +76705,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref.commit;
 
             console.log(formData);
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/login";
+            var path = "/api/jwt/auth/login";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, formData).then(function (res) {
                 return commit("VALIDATE_LOGIN", res);
             }).catch(function (error) {
@@ -76727,21 +76716,18 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         logout: function logout(_ref2) {
             var commit = _ref2.commit;
 
-            // var path = "http://localhost:8000/";
-            // path += "api/jwt/auth/logout";
-            // axios
-            //     .post(path)
-            //     .then(res => commit("LOGOUT", res))
-            //     .catch(error => {
-            //         console.log(error.response);
-            //     });
+            var path = "/api/jwt/auth/logout";
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path).then(function (res) {
+                return commit("LOGOUT", res);
+            }).catch(function (error) {
+                console.log(error.response);
+            });
             commit("LOGOUT");
         },
         signup: function signup(_ref3, formData) {
             var commit = _ref3.commit;
 
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/signup";
+            var path = "/api/jwt/auth/signup";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, formData).then(function (res) {
                 return commit("VALIDATE_LOGIN", res);
             }).catch(function (error) {
@@ -76752,8 +76738,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref4.commit;
 
             console.log(data);
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/in";
+            var path = "/api/empl/clock/in";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, data).then(function (res) {
                 return commit("CLOCKIN", res);
             }).catch(function (error) {
@@ -76764,8 +76749,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref5.commit;
 
             console.log(data);
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/out";
+            var path = "/api/empl/clock/out";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.put(path, data).then(function (res) {
                 return commit("CLOCKOUT", res);
             }).catch(function (error) {
@@ -76775,8 +76759,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         populateUsersList: function populateUsersList(_ref6) {
             var commit = _ref6.commit;
 
-            var path = "http://localhost:8000/";
-            path += "api/jwt/auth/users";
+            var path = "/api/jwt/auth/users";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path).then(function (res) {
                 commit("POPULATEUSERSLIST", res.data);
             }).catch(function (error) {
@@ -76791,8 +76774,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         getAllUsersLogs: function getAllUsersLogs(_ref8, data) {
             var commit = _ref8.commit;
 
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/all/logs";
+            var path = "/api/empl/clock/all/logs";
             console.log("BEGIN: GetAllUsersLog");
             console.log(data);
             console.log("END: GetAllUsersLog");
@@ -76811,11 +76793,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         getLogsOnThisDay: function getLogsOnThisDay(_ref10, data) {
             var commit = _ref10.commit;
 
-            var path = "http://localhost:8000/";
-            path += "api/empl/clock/day/logs";
-            console.log("BEGIN: GET LOGS ON THIS DAY");
-            console.log(data);
-            console.log("END: GET LOGS ON THIS DAY");
+            var path = "/api/empl/clock/day/logs";
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path, data).then(function (res) {
                 console.log(res);
                 commit("GETLOGSONTHISDAY", res.data);
