@@ -41,7 +41,8 @@ class ClockInController extends Controller
 
         return $this->clockInRetriever->clockOut($dataArray);
     }
-     // Admin Methods
+
+
     /**
      * Display the specified resource.
      *
@@ -63,12 +64,10 @@ class ClockInController extends Controller
      */
     public function getAllLogsOnThisDay(Request $request)
     {
-        // return $request->date;
         $dataArray['day_of'] = $request->date;
 
         $data = $this->clockInRetriever->getAllLogsOnThisDay($dataArray);
         return $data;
-        // $data = ClockInResource::collection($data);
     }
 
 }
