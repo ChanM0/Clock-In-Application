@@ -9,10 +9,7 @@ export default {
       this.$router.push({ name: "landingPage" });
     }
     this.$store.dispatch("logout");
-    // if the user is logged out then redirect to landing page
-    if (isUserLoggedIn == false) {
-      this.$router.push({ name: "landingPage" });
-    }
+    this.$router.push({ name: "landingPage" });
   }
 };
 </script>

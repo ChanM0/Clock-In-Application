@@ -26329,9 +26329,9 @@ try {
 
 window.axios = __webpack_require__(10);
 
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-var jwt = "Bearer " + localStorage.getItem("token");
-window.axios.defaults.headers.common["Authorization"] = jwt;
+// window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+// const jwt = `Bearer ${localStorage.getItem("token")}`;
+// window.axios.defaults.headers.common["Authorization"] = jwt;
 /**  */
 
 /**
@@ -75162,7 +75162,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -75185,10 +75185,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$router.push({ name: "landingPage" });
     }
     this.$store.dispatch("logout");
-    // if the user is logged out then redirect to landing page
-    if (isUserLoggedIn == false) {
-      this.$router.push({ name: "landingPage" });
-    }
+    this.$router.push({ name: "landingPage" });
   }
 });
 
@@ -76654,6 +76651,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 state.isLoggedIn = localStorage.getItem("token") ? true : false;
                 state.username = username;
                 state.userId = userId;
+                window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+                var jwt = "Bearer " + localStorage.getItem("token");
+                window.axios.defaults.headers.common["Authorization"] = jwt;
             }
         },
         LOGOUT: function LOGOUT(state) {

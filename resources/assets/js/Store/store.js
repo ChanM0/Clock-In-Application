@@ -37,6 +37,10 @@ const store = new Vuex.Store({
                 state.isLoggedIn = localStorage.getItem("token") ? true : false;
                 state.username = username;
                 state.userId = userId;
+                window.axios.defaults.headers.common["X-Requested-With"] =
+                    "XMLHttpRequest";
+                const jwt = `Bearer ${localStorage.getItem("token")}`;
+                window.axios.defaults.headers.common["Authorization"] = jwt;
             }
         },
         LOGOUT(state) {
