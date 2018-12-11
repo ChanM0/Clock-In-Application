@@ -26329,9 +26329,9 @@ try {
 
 window.axios = __webpack_require__(10);
 
-// window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-// const jwt = `Bearer ${localStorage.getItem("token")}`;
-// window.axios.defaults.headers.common["Authorization"] = jwt;
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+var jwt = "Bearer " + localStorage.getItem("token");
+window.axios.defaults.headers.common["Authorization"] = jwt;
 /**  */
 
 /**
@@ -76762,7 +76762,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref6.commit;
 
             var path = "/api/jwt/auth/users";
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post(path).then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(path).then(function (res) {
                 commit("POPULATEUSERSLIST", res.data);
             }).catch(function (error) {
                 return console.log(error.response.data);

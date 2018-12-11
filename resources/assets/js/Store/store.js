@@ -138,7 +138,7 @@ const store = new Vuex.Store({
         populateUsersList({ commit }) {
             let path = "/api/jwt/auth/users";
             axios
-                .post(path)
+                .get(path)
                 .then(res => {
                     commit("POPULATEUSERSLIST", res.data);
                 })

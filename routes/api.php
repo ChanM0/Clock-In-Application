@@ -23,7 +23,7 @@ Route::group([
     Route::post('logout', 'UserAuthController@logout');
     Route::post('refresh', 'UserAuthController@refresh');
     Route::post('me', 'UserAuthController@me');
-    Route::post('/users', 'UserAuthController@getAllUsers')->name('clockIn');
+    Route::get('/users', 'UserAuthController@getAllUsers')->name('clockIn');
 });
 
 
