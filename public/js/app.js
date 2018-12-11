@@ -76661,6 +76661,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.username = null;
             state.userId = null;
+            window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+            window.axios.defaults.headers.common["Authorization"] = null;
             // console.log(res);/
         },
         CLOCKIN: function CLOCKIN(state, res) {

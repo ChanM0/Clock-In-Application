@@ -48,6 +48,9 @@ const store = new Vuex.Store({
             state.isLoggedIn = localStorage.getItem("token") ? true : false;
             state.username = null;
             state.userId = null;
+            window.axios.defaults.headers.common["X-Requested-With"] =
+                "XMLHttpRequest";
+            window.axios.defaults.headers.common["Authorization"] = null;
             // console.log(res);/
         },
         CLOCKIN(state, res) {
